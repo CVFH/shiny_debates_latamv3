@@ -1,0 +1,183 @@
+"","cat_pais","ncat_eleccion","cat_ballotage"
+"1","Brasil",1989,2
+"2","Brasil",1994,1
+"3","Brasil",1998,2
+"4","Brasil",2002,2
+"5","Brasil",2006,2
+"6","Brasil",2010,2
+"7","Brasil",2014,2
+"8","Brasil",2018,2
+"9","Argentina",1983,1
+"10","Argentina",1989,1
+"11","Argentina",1995,1
+"12","Argentina",1999,1
+"13","Argentina",2003,1
+"14","Argentina",2007,1
+"15","Argentina",2011,1
+"16","Argentina",2015,2
+"17","Argentina",2019,2
+"18","Chile",1989,1
+"19","Chile",1993,1
+"20","Chile",2000,2
+"21","Chile",2006,2
+"22","Chile",2010,2
+"23","Chile",2013,2
+"24","Chile",2017,2
+"25","Peru",1980,1
+"26","Peru",1985,1
+"27","Peru",1990,2
+"28","Peru",1995,1
+"29","Peru",2000,2
+"30","Peru",2001,2
+"31","Peru",2006,2
+"32","Peru",2011,2
+"33","Peru",2016,2
+"34","Peru",2021,2
+"35","Paraguay",1989,1
+"36","Paraguay",1993,1
+"37","Paraguay",1998,1
+"38","Paraguay",2003,1
+"39","Paraguay",2008,1
+"40","Paraguay",2013,1
+"41","Paraguay",2018,1
+"42","Ecuador",1960,1
+"43","Ecuador",1966,1
+"44","Ecuador",1968,1
+"45","Ecuador",1979,2
+"46","Ecuador",1984,2
+"47","Ecuador",1988,2
+"48","Ecuador",1992,2
+"49","Ecuador",1996,2
+"50","Ecuador",1998,2
+"51","Ecuador",2002,2
+"52","Ecuador",2006,2
+"53","Ecuador",2009,1
+"54","Ecuador",2013,1
+"55","Ecuador",2017,2
+"56","Ecuador",2021,2
+"57","Uruguay",1984,1
+"58","Uruguay",1989,1
+"59","Uruguay",1994,1
+"60","Uruguay",1999,2
+"61","Uruguay",2004,1
+"62","Uruguay",2009,2
+"63","Uruguay",2014,2
+"64","Uruguay",2019,2
+"65","Nicaragua",1984,1
+"66","Nicaragua",1990,1
+"67","Nicaragua",1997,1
+"68","Nicaragua",2001,1
+"69","Nicaragua",2006,1
+"70","Nicaragua",2011,1
+"71","Nicaragua",2016,1
+"72","Panama",1994,1
+"73","Panama",1999,1
+"74","Panama",2004,1
+"75","Panama",2009,1
+"76","Panama",2014,1
+"77","Panama",2019,1
+"78","Venezuela",1958,1
+"79","Venezuela",1963,1
+"80","Venezuela",1968,1
+"81","Venezuela",1973,1
+"82","Venezuela",1978,1
+"83","Venezuela",1983,1
+"84","Venezuela",1988,1
+"85","Venezuela",1993,1
+"86","Venezuela",1998,1
+"87","Venezuela",2000,1
+"88","Venezuela",2006,1
+"89","Venezuela",2012,1
+"90","Venezuela",2013,1
+"91","Venezuela",2018,1
+"92","Bolivia",1978,1
+"93","Bolivia",1979,1
+"94","Bolivia",1980,1
+"95","Bolivia",1985,1
+"96","Bolivia",1989,1
+"97","Bolivia",1993,1
+"98","Bolivia",1997,1
+"99","Bolivia",2002,1
+"100","Bolivia",2005,1
+"101","Bolivia",2009,1
+"102","Bolivia",2014,1
+"103","Bolivia",2019,1
+"104","Bolivia",2020,1
+"105","Mexico",1982,1
+"106","Mexico",1988,1
+"107","Mexico",1994,1
+"108","Mexico",2000,1
+"109","Mexico",2006,1
+"110","Mexico",2012,1
+"111","Mexico",2018,1
+"112","Guatemala",1966,1
+"113","Guatemala",1970,1
+"114","Guatemala",1974,1
+"115","Guatemala",1978,1
+"116","Guatemala",1982,1
+"117","Guatemala",1985,2
+"118","Guatemala",1991,2
+"119","Guatemala",1995,2
+"120","Guatemala",1999,2
+"121","Guatemala",2003,2
+"122","Guatemala",2007,2
+"123","Guatemala",2011,2
+"124","Guatemala",2015,2
+"125","Guatemala",2019,2
+"126","Honduras",1981,1
+"127","Honduras",1985,1
+"128","Honduras",1989,1
+"129","Honduras",1993,1
+"130","Honduras",1997,1
+"131","Honduras",2001,1
+"132","Honduras",2005,1
+"133","Honduras",2009,1
+"134","Honduras",2013,1
+"135","Honduras",2017,1
+"136","Colombia",1974,1
+"137","Colombia",1978,1
+"138","Colombia",1982,1
+"139","Colombia",1986,1
+"140","Colombia",1990,1
+"141","Colombia",1994,2
+"142","Colombia",1998,2
+"143","Colombia",2002,1
+"144","Colombia",2006,1
+"145","Colombia",2010,2
+"146","Colombia",2014,2
+"147","Colombia",2018,1
+"148","Costa Rica",1962,1
+"149","Costa Rica",1966,1
+"150","Costa Rica",1970,1
+"151","Costa Rica",1974,1
+"152","Costa Rica",1978,1
+"153","Costa Rica",1982,1
+"154","Costa Rica",1986,1
+"155","Costa Rica",1990,1
+"156","Costa Rica",1994,1
+"157","Costa Rica",1998,1
+"158","Costa Rica",2002,2
+"159","Costa Rica",2006,1
+"160","Costa Rica",2010,1
+"161","Costa Rica",2014,2
+"162","Costa Rica",2018,2
+"163","Republica Dominicana",1978,1
+"164","Republica Dominicana",1982,1
+"165","Republica Dominicana",1986,1
+"166","Republica Dominicana",1990,1
+"167","Republica Dominicana",1994,1
+"168","Republica Dominicana",1996,2
+"169","Republica Dominicana",2000,1
+"170","Republica Dominicana",2004,1
+"171","Republica Dominicana",2008,1
+"172","Republica Dominicana",2012,1
+"173","Republica Dominicana",2016,1
+"174","Republica Dominicana",2020,1
+"175","El Salvador",1984,2
+"176","El Salvador",1989,1
+"177","El Salvador",1994,2
+"178","El Salvador",1999,1
+"179","El Salvador",2004,1
+"180","El Salvador",2009,1
+"181","El Salvador",2014,2
+"182","El Salvador",2019,1
