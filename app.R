@@ -1,14 +1,38 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
+# paquetes
 library(shiny)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(purrr)
+library(tidyr)
+library(forcats)
+library(readr)
+library(dendextend)
+library(amap)
+library(RColorBrewer)
+library(plotly)
+library(bslib)
 
+#datos
+base <- read.csv("data/base.csv", stringsAsFactors = F)
+base_años <-  read.csv("data/base_anos.csv", stringsAsFactors = F)
+base_organizadores <- read.csv("data/base_organizadores.csv", stringsAsFactors = F)
+base_formatos <- read.csv("data/base_formatos.csv", stringsAsFactors = F)
+base_temas <- read.csv("data/base_temas.csv", stringsAsFactors = F)
+base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F)
+codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F)
+base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
+codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F)
+
+colorespais <- base %>% 
+    distinct(cat_pais, cols_18)
+
+colorespais2 <- base %>% 
+    distinct(cat_pais, cols_18) %>% 
+    mutate(cat_pais = str_replace(cat_pais,"Republica Dominicana", "Rep. Dom.")) 
+
+coloresformato <- base_formatos %>% 
+    distinct(cat_tipo_formato, colores_formato)
 
 # Define UI for application that draws a histogram
 ui <- navbarPage(
@@ -147,6 +171,26 @@ ui <- navbarPage(
                                   mainPanel(
                                       
                                       h2("Análisis de clusters", align = "center"),
+                                      
+                                      
+                                      tags$div(
+                                          tags$p("El análisis de clusters se utiliza para agrupar “objetos” 
+                                          conforme a sus características. 
+                                          Es es una familia de técnicas cuyo proceder se basa en algún algoritmo 
+                                          que, en etapas sucesivas, 
+                                      compara alguna medida de la similitud de las observaciones 
+                                      a lo largo de más de una variable y une a las que más se parecen, 
+                                      repitiendo el procedimiento hasta arribar a algún número predeterminado de grupos (“clusters”)."),
+                                          
+                                          tags$p("En nuestro caso, se trata de comparar, clasificar y reunir a los países de nuestra muestra 
+                                      conforme a los modos en que en ellos se han realizado los debates presidenciales televisados.
+                                      Hemos optado por seguir un método jerárquico de agregación de los resultados."),  
+                                      
+                                          tags$p("Aquí se puede expermientar con distintas especificaciones del modelo: 
+                                        seleccionar tanto diferentes indicadores 
+                                        con base en los cuales comparar los países, 
+                                        y utilizar dos abordajes diferentes 
+                                        para medir la similitud entre los sucesivos grupos.") ),
                                       
                                       plotOutput("plot_cluster"),
                                       tableOutput('tabla_indicadores')
