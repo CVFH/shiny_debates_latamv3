@@ -28,3 +28,12 @@ base_cluster_pais %>% write.csv("./data/base_cluster_pais.csv")
 
 codebook_cluster_pais <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/codebooks/codebook_base_cluster_pais.xlsx") 
 codebook_cluster_pais %>% write.csv("./data/codebook_cluster_pais.csv") 
+
+base_años <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/elecciones.csv", stringsAsFactors = F)  %>% 
+  left_join(base %>% 
+              group_by(ncat_eleccion, cat_pais) %>% 
+              summarise(n_debates_año_pais = n())) %>% 
+  mutate( debates_dico = !is.na(n_debates_año_pais),
+          n_debates_año_pais = replace_na(n_debates_año_pais, 0) ) %>% 
+  left_join(colorespais)
+base_años %>% write.csv("./data/base_años.csv")

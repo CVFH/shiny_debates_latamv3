@@ -14,7 +14,7 @@ library(bslib)
 # preparacion de datos
 
 base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv", stringsAsFactors = F)
-elecciones <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/elecciones.csv", stringsAsFactors = F)
+base_años <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_años.csv", stringsAsFactors = F)
 base_organizadores <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_organizadores.csv", stringsAsFactors = F)
 base_formatos <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_formatos.csv", stringsAsFactors = F)
 base_temas <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_temas.csv", stringsAsFactors = F)
@@ -36,12 +36,11 @@ coloresformato <- base_formatos %>%
 # 1.1 GRAFICO DE EVOLUCION TEMPORAL #####
 
 
-debates_año_pais <- base %>% 
-  group_by(ncat_eleccion, cat_pais) %>% 
-  summarise(n_debates_año_pais = n()) 
 
 base_años <- elecciones %>% 
-  left_join(debates_año_pais) %>% 
+  left_join(base %>% 
+              group_by(ncat_eleccion, cat_pais) %>% 
+              summarise(n_debates_año_pais = n())) %>% 
   mutate( debates_dico = !is.na(n_debates_año_pais),
           n_debates_año_pais = replace_na(n_debates_año_pais, 0) ) %>% 
   left_join(colorespais)
