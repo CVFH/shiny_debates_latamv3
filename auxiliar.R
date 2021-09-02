@@ -13,23 +13,15 @@ library(bslib)
 
 # preparacion de datos
 
-base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv")
-
-elecciones <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_elecciones.xlsx")
-
-base_organizadores <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_organizadoresv3.xlsx")
-
-base_formatos <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_formatos_longv3.xlsx")
-
-base_temas <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_temas_longv3.xlsx")
-
-base_normativa <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_normativa.xlsx")
-
-codebook <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/codebooks/codebookv3.xlsx") %>% 
-
-base_cluster_pais <- read.csv("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/base_cluster_pais.csv")
-
-codebook_cluster_pais <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/codebooks/codebook_base_cluster_pais.xlsx") 
+base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv", stringsAsFactors = F)
+elecciones <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/elecciones.csv", stringsAsFactors = F)
+base_organizadores <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_organizadores.csv", stringsAsFactors = F)
+base_formatos <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_formatos.csv", stringsAsFactors = F)
+base_temas <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_temas.csv", stringsAsFactors = F)
+base_normativa <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_normativa.csv", stringsAsFactors = F)
+codebook <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/codebook.csv", stringsAsFactors = F)
+base_cluster_pais <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_cluster_pais.csv", stringsAsFactors = F)
+codebook_cluster_pais <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/codebook_cluster_pais.csv", stringsAsFactors = F)
 
 colorespais <- base %>% 
   distinct(cat_pais, cols_18)
@@ -48,14 +40,11 @@ debates_año_pais <- base %>%
   group_by(ncat_eleccion, cat_pais) %>% 
   summarise(n_debates_año_pais = n()) 
 
-colores <- base %>%
-  distinct(cat_pais, cols_18) 
-
 base_años <- elecciones %>% 
   left_join(debates_año_pais) %>% 
   mutate( debates_dico = !is.na(n_debates_año_pais),
           n_debates_año_pais = replace_na(n_debates_año_pais, 0) ) %>% 
-  left_join(colores)
+  left_join(colorespais)
 
 
 # transitorios #####
