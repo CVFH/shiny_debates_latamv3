@@ -13,34 +13,23 @@ library(bslib)
 
 # preparacion de datos
 
-base <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_finalv3.xlsx")
-base %>% write.csv("base.csv")
+base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv")
 
 elecciones <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_elecciones.xlsx")
-elecciones %>% write.csv("elecciones.csv")
 
 base_organizadores <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_organizadoresv3.xlsx")
-base_organizadores %>% write.csv("base_organizadores.csv")
 
 base_formatos <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_formatos_longv3.xlsx")
-base_formatos %>% write.csv("base_formatos.csv")
 
 base_temas <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_temas_longv3.xlsx")
-base_temas %>% write.csv("base_temas.csv")
 
 base_normativa <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_normativa.xlsx")
-base_normativa %>% write.csv("base_normativa.csv")
 
 codebook <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/codebooks/codebookv3.xlsx") %>% 
-  filter(!str_detect(Variable,"longstr_")) %>% 
-  filter(!str_detect(Variable,"comentarios"))
-codebook %>% write.csv("codebook.csv")
 
 base_cluster_pais <- read.csv("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/base_cluster_pais.csv")
-base_cluster_pais %>% write.csv("base_cluster_pais.csv")
 
 codebook_cluster_pais <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/codebooks/codebook_base_cluster_pais.xlsx") 
-codebook_cluster_pais %>% write.csv("codebook_cluster_pais.csv")  
 
 colorespais <- base %>% 
   distinct(cat_pais, cols_18)
