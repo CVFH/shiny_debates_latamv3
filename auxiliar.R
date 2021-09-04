@@ -11,6 +11,13 @@
 # library(plotly)
 # library(bslib)
 
+# lista_paquetes <- c("shiny","tidyverse","amap","RColorBrewer","plotly","bslib")
+# 
+# # Revisar si paquetes están instalados. Si lo están, cargará los paquetes. Si no lo están, instalará y luego cargará los paquetes.
+# nuevos_paquetes <- lista_paquetes[!(lista_paquetes %in% installed.packages()[,"Package"])]
+# lapply(nuevos_paquetes, install.packages); lapply(lista_paquetes, require, character.only = TRUE)
+
+
 # preparacion de datos ##########
 
 # base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv", stringsAsFactors = F)

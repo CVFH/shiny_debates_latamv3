@@ -1,4 +1,4 @@
-"","Variable","Descripción","Tipo"
+"","Variable","Descripcion","Tipo"
 "1","id_debate","Código único de identificación de un debate.","id"
 "2","cat_pais","Nombre del país.","categórica"
 "3","ncat_eleccion","Año electoral. Entendemos que una elección es un ciclo largo que comprende tanto la primera como la segunda vuelta, si la hubiera. En el caso de que una y otra se celebren en años diferentes (la primera ronda a fines de uno, el ballotage a comienzos del siguiente) anotamos, arbitrariamente y a los fines de un cómputo ordenado, el segundo año como año del período electoral.","ordinal"

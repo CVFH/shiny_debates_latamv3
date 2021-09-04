@@ -1,28 +1,22 @@
 # paquetes
 library(shiny)
-library(ggplot2)
-library(dplyr)
-library(stringr)
-library(purrr)
-library(tidyr)
-library(forcats)
-library(readr)
-library(dendextend)
+library(tidyverse)
 library(amap)
 library(RColorBrewer)
 library(plotly)
 library(bslib)
+library(dendextend)
 
-#datos
+# datos
 base <- read.csv("data/base.csv", stringsAsFactors = F)
-base_años <-  read.csv("data/base_anos.csv", stringsAsFactors = F)
+base_anual <-  read.csv("data/base_anual.csv", stringsAsFactors = F)
 base_organizadores <- read.csv("data/base_organizadores.csv", stringsAsFactors = F)
 base_formatos <- read.csv("data/base_formatos.csv", stringsAsFactors = F)
 base_temas <- read.csv("data/base_temas.csv", stringsAsFactors = F)
 base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F)
-codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F)
+codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding="Latin-1")
 base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
-codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F)
+codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding="Latin-1")
 
 colorespais <- base %>% 
     distinct(cat_pais, cols_18)
@@ -49,7 +43,7 @@ ui <- navbarPage(
                                       sidebarPanel(
                                           selectInput(inputId = "selec_pais", 
                                                       label = "Seleccione un país", 
-                                                      choices = unique(base_años$cat_pais),
+                                                      choices = unique(base_anual$cat_pais),
                                                       selected = "Argentina", 
                                                       multiple = TRUE),
                                           
@@ -100,7 +94,45 @@ ui <- navbarPage(
                                                    
                                                    h2("Formatos de los debates", align = "center"),
                                                    
+                                                   p("En su máxima amplitud, el “formato” de un debate implica una combinación de múltiples decisiones estéticas, técnicas y, crucialmente, relativas a los lineamientos de la discusión.
+                                                   Todas ellas pueden afectar la manera en que es emitido y receptado el encuentro y, por este motivo, 
+                                                   suelen ser objeto de intensas disputas entre los equipos de campaña, periodistas y los organizadores."),
+                                                   
+                                                   p("De este abanico, nos parece interesante sistematizar la variación en dos subdimensiones: 
+                                                     los patrones de interacción e intercambio, la una, 
+                                                     la disposición temática, la otra."),
+                                                   
                                                    h4("Esquemas de interacción"),
+                                                   
+                                                   p("Por patrones de interacción e intercambio, nos referimos a los modos en los que se acuerda la participación de los candidatos, esto es, a los diálogos o exposiciones que se espera que estos entablen con base en las reglas negociadas de manera previa al encuentro.
+                                                     En pocas palabras, esta subdimensión contempla si hay preguntas y, en caso afirmativo, quién las hace y cómo se espera que los candidatos hablen o respondan. "),
+
+                                                   p("Para cubrir los debates examinados, construimos una variable categórica con 10 niveles, que pueden convivir o no dentro de una misma emisión. 
+                                                   En primer lugar, se examina el tipo de intercambio propuesto entre los candidatos entre sí: puede haber “duelos” en tiempos y órdenes de interacción rígidos y pactados de antemano; o puede haber discusión “libre”."),
+                                                   
+                                                   img(src = 'www/duelo.png'),
+                                                   img(src = "www/libre.png"),
+                                                  
+                                                   p("En segundo lugar, observamos las interacciones propuestas entre los candidatos y distintos tipos de actores, si las hubiera. 
+                                                   
+                                                     A veces preguntan los “moderadores” del evento", 
+                                                   
+                                                     img(src = "www/moderador.png", height = 72, width = 72),
+                                                   
+                                                   "Puede haber un panel de “periodistas”, uno de “expertos” (destacados por sus credenciales académicas), o uno con representantes de “sectores” de la sociedad civil.",
+                                                   
+                                                   img(src = "www/periodistas.png"),
+                                                   img(src = "www/sectores.png"),
+                                                   
+                                                   "Alternativamente, se autorizan a veces preguntas por parte del público, entendido como la masa indiferenciada de ciudadanos, 
+                                                   sea de manera “virtual”, o sea encarnada en algunos individuos “presentes” en el piso.", 
+                                                   
+                                                   img(src = "www/virtuales.png"),
+                                                   img(src = "www/presentes.png"),
+                                                   
+                                                   "Finalmente, existen debates que no proponen diálogo strictu sensu alguno, formato que calificamos de “expositivo”."),
+                                                   
+                                                   
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                    plotOutput("formatos_t"),
@@ -243,8 +275,8 @@ server <- function(input, output) {
             filter(ncat_eleccion >= input$selec_t[1] & ncat_eleccion <= input$selec_t[2] )
     })    
     
-    df.filt_base_anos <- eventReactive(input$action_dimensiones, {
-        df.filt <- base_años %>% 
+    df.filt_base_anual <- eventReactive(input$action_dimensiones, {
+        df.filt <- base_anual %>% 
             filter(cat_pais == input$selec_pais | cat_pais %in% input$selec_pais) %>% 
             filter(ncat_eleccion >= input$selec_t[1] & ncat_eleccion <= input$selec_t[2] )
     })
@@ -252,12 +284,12 @@ server <- function(input, output) {
     output$ev_anual <- renderPlotly({
 
         ggplotly(
-            df.filt_base_anos() %>%  
+            df.filt_base_anual() %>%  
                      ggplot(aes(ncat_eleccion, 
-                                n_debates_año_pais,
+                                n_debates_ano_pais,
                                 colour = cat_pais))  +
                      geom_line() + 
-                     geom_point(aes(size= n_debates_año_pais, shape = debates_dico, alpha= debates_dico)) +
+                     geom_point(aes(size= n_debates_ano_pais, shape = debates_dico, alpha= debates_dico)) +
                      scale_color_manual(breaks= colorespais2$cat_pais,
                                         values=colorespais2$cols_18) +
                      scale_shape_manual(values=c("FALSE" = 4, "TRUE" = 19)) +
