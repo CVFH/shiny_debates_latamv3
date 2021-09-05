@@ -110,27 +110,28 @@ ui <- navbarPage(
                                                    p("Para cubrir los debates examinados, construimos una variable categórica con 10 niveles, que pueden convivir o no dentro de una misma emisión. 
                                                    En primer lugar, se examina el tipo de intercambio propuesto entre los candidatos entre sí: puede haber “duelos” en tiempos y órdenes de interacción rígidos y pactados de antemano; o puede haber discusión “libre”."),
                                                    
-                                                   img(src = 'www/duelo.png'),
-                                                   img(src = "www/libre.png"),
+                                                   img(src = 'duelo.png', height = 140, width = 290),
+                                                   img(src = "libre.png", height = 140, width = 290),
                                                   
                                                    p("En segundo lugar, observamos las interacciones propuestas entre los candidatos y distintos tipos de actores, si las hubiera. 
                                                    
-                                                     A veces preguntan los “moderadores” del evento", 
+                                                     A veces preguntan los “moderadores” del evento"), 
                                                    
-                                                     img(src = "www/moderador.png", height = 72, width = 72),
+                                                     img(src = "moderador.png", height = 140, width = 290),
                                                    
-                                                   "Puede haber un panel de “periodistas”, uno de “expertos” (destacados por sus credenciales académicas), o uno con representantes de “sectores” de la sociedad civil.",
+                                                     p("Puede haber un panel de “periodistas”, uno de “expertos” (destacados por sus credenciales académicas), 
+                                                       o uno con representantes de “sectores” de la sociedad civil."),
                                                    
-                                                   img(src = "www/periodistas.png"),
-                                                   img(src = "www/sectores.png"),
+                                                   img(src = "periodistas.png", height = 140, width = 290),
+                                                   img(src = "sectores.png", height = 140, width = 290),
                                                    
-                                                   "Alternativamente, se autorizan a veces preguntas por parte del público, entendido como la masa indiferenciada de ciudadanos, 
-                                                   sea de manera “virtual”, o sea encarnada en algunos individuos “presentes” en el piso.", 
+                                                   p("Alternativamente, se autorizan a veces preguntas por parte del público, entendido como la masa indiferenciada de ciudadanos, 
+                                                   sea de manera “virtual”, o sea encarnada en algunos individuos “presentes” en el piso."), 
                                                    
-                                                   img(src = "www/virtuales.png"),
-                                                   img(src = "www/presentes.png"),
+                                                   img(src = "virtuales.png", height = 140, width = 290),
+                                                   img(src = "presentes.png", height = 140, width = 290),
                                                    
-                                                   "Finalmente, existen debates que no proponen diálogo strictu sensu alguno, formato que calificamos de “expositivo”."),
+                                                   p("Finalmente, existen debates que no proponen diálogo strictu sensu alguno, formato que calificamos de “expositivo”."),
                                                    
                                                    
                                                    splitLayout(
@@ -147,6 +148,15 @@ ui <- navbarPage(
                                                    ) ,
                                                    
                                                    h4("Distribución temática"),
+                                                   
+                                                   p("la disposición temática remite al modo en que la discusión y/o las exposiciones de los candidatos son encauzadas (o no) hacia uno o varios tópicos o problemáticas particulares. 
+                                                     No interesa tanto cuáles son los temas, sino cómo se decide sobre qué hablarán los candidatos. 
+                                                     Encontramos cuatro posibilidades: 
+                                                    (1) los candidatos pueden hablar sobre lo que quieran –el tema es “libre”–, 
+                                                     (2) la discusión se organiza en algunos “bloques” temáticos muy generales, 
+                                                     o (3) incluso versa sobre un único tema –en un debate “monotemático”–, 
+                                                     o, por último, (4) lo dicho por los candidatos puede pautarse mediante la realización de “preguntas” muy específicas por parte de terceros a los candidatos."),
+                                                   
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                        plotOutput("temas_t"),

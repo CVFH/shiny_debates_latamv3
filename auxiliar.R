@@ -52,4 +52,53 @@
 #                   n_catformatos )))
 
 
+base <- read.csv("data/base.csv", stringsAsFactors = F)
+colorespais <- base %>% 
+  distinct(cat_pais, cols_18)
+require(ggplot2)
+require(ggrepel)
+require(maps)
+require(mapdata)
+install.packages(c("maps", "mapdata"))
+
+ccode <- c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colombia", "Venezuela",
+                        "Bolivia", "Ecuador", "Chile", "Paraguay", "Peru", "Guyana", "Panama", "Costa Rica", 
+                        "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
+                        "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
+                        "Dominica", "Saba") %>% as.tibble()
+colorespais <- readxl::read_xlsx("colorespais.xlsx")
+
+colorespais %>% writexl::write_xlsx("colorespais.xlsx") 
+mapa <- borders("world", regions = c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colombia", "Venezuela",
+                                     "Bolivia", "Ecuador", "Chile", "Paraguay", "Peru", "Guyana", "Panama", "Costa Rica", 
+                                     "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
+                                     "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
+                                     "Dominica", "Saba"), 
+                fill = "grey70", colour = "black")
+
+base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
+rownames(base_cluster_pais)
+mapear <- colorespais %>% 
+  left_join(base_cluster_pais) 
+
+data_mapa <- map_data("world2", mapear$ccode) %>%
+  rename(ccode = "region") %>% 
+  left_join(mapear)
+
+data_mapa %>% 
+ggplot() +
+  geom_polygon(aes(x=long, 
+                   y = lat, 
+                   group = group, 
+                   fill=ccode, 
+                   alpha= n_debates_total)) + 
+  scale_colour_manual(breaks = mapear$ccode,
+                      values = mapear$cols_18) +
+  coord_fixed(1.3) +
+  theme_void() +
+  theme(legend.position = "none")
+
+
+ggplot() + mapa + theme_bw() + xlab("Longitude (decimals)") + ylab("Latitude (decimals)") + 
+  theme(panel.border = element_blank(), panel.grid.major = element_line(colour = "grey80"), panel.grid.minor = element_blank())
   
