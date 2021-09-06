@@ -6,6 +6,10 @@ library(RColorBrewer)
 library(plotly)
 library(bslib)
 library(dendextend)
+library(bslib)
+library(maps)
+library(bslib)
+library(mapdata)
 
 # datos
 base <- read.csv("data/base.csv", stringsAsFactors = F)
@@ -14,16 +18,11 @@ base_organizadores <- read.csv("data/base_organizadores.csv", stringsAsFactors =
 base_formatos <- read.csv("data/base_formatos.csv", stringsAsFactors = F)
 base_temas <- read.csv("data/base_temas.csv", stringsAsFactors = F)
 base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F)
-codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding="Latin-1")
+codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "Latin-1")
 base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
-codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding="Latin-1")
-
-colorespais <- base %>% 
-    distinct(cat_pais, cols_18)
-
-colorespais2 <- base %>% 
-    distinct(cat_pais, cols_18) %>% 
-    mutate(cat_pais = str_replace(cat_pais,"Republica Dominicana", "Rep. Dom.")) 
+codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "Latin-1")
+ccodes <-  read.csv("ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
+mapear <-  read.csv("mapear.csv", stringsAsFactors = F, encoding = "Latin-1")
 
 coloresformato <- base_formatos %>% 
     distinct(cat_tipo_formato, colores_formato)
@@ -207,7 +206,7 @@ ui <- navbarPage(
                                                   multiple = FALSE ),
                                       
                                       actionButton("action_interdependencia", 
-                                                   "Visualizar selección")
+                                                   "Ejecutar análisis")
                                       ),
                                   
                                   mainPanel(
@@ -234,8 +233,21 @@ ui <- navbarPage(
                                         y utilizar dos abordajes diferentes 
                                         para medir la similitud entre los sucesivos grupos.") ),
                                       
-                                      plotOutput("plot_cluster"),
-                                      tableOutput('tabla_indicadores')
+                                      
+                                      h4("Selección de indicadores"),
+                                       p("en el mapa y la tabla a continuación se puede contrastar
+                                         la información que proveen distintos indicadores agregados"), 
+                                      
+                                      uiOutput("selector"),
+                                      actionButton("action_interdependencia2", 
+                                                   "Explorar indicador"),
+                                      plotOutput("plot_mapa"),
+                                      tableOutput('tabla_indicadores'),
+                                      
+                                      h4("Resultado del análisis de clusters"),
+                                      p("El dendograma a continuación muestra el resultado de la 
+                                        especificación elegida"),
+                                      plotOutput("plot_cluster")
                                   )
                               )
                           )),
@@ -300,8 +312,8 @@ server <- function(input, output) {
                                 colour = cat_pais))  +
                      geom_line() + 
                      geom_point(aes(size= n_debates_ano_pais, shape = debates_dico, alpha= debates_dico)) +
-                     scale_color_manual(breaks= colorespais2$cat_pais,
-                                        values=colorespais2$cols_18) +
+                     scale_color_manual(breaks= ccodes$cat_pais2,
+                                        values= ccodes$cols_18) +
                      scale_shape_manual(values=c("FALSE" = 4, "TRUE" = 19)) +
                      scale_alpha_manual(values=c("FALSE" = 0.4, "TRUE" = 1)) +
                      theme_minimal() +
@@ -407,8 +419,8 @@ server <- function(input, output) {
             theme_minimal() +
             scale_y_continuous(breaks = seq(0,15,1)) +
             scale_x_continuous(breaks = seq(1955,2021,5)) +
-            scale_color_manual(breaks= colorespais2$cat_pais,
-                               values=colorespais2$cols_18) +
+            scale_color_manual(breaks= ccodes$cat_pais2,
+                               values= ccodes$cols_18) +
             theme(legend.position = "none",
                   plot.title = element_text(hjust = 0.5),
                   axis.text.x = element_text(angle = 90)) +
@@ -474,8 +486,8 @@ server <- function(input, output) {
                   plot.title = element_text(hjust = 0.5),
                   plot.subtitle = element_text(hjust = 0.5),
                   axis.text.x = element_text(angle = 90)) +
-            scale_color_manual(breaks= colorespais$cat_pais,
-                               values=colorespais$cols_18) +
+            scale_color_manual(breaks= ccodes$cat_pais,
+                               values= ccodes$cols_18) +
             scale_y_discrete(
                 breaks = c("pr_formatopresentes", "pr_formatovirtuales", "pr_formatosectores",
                            "pr_formatoexpertos", "pr_formatomoderadores","pr_formatoperiodistas", "pr_formatoapertura",
@@ -529,8 +541,8 @@ server <- function(input, output) {
                   plot.title = element_text(hjust = 0.5),
                   plot.subtitle = element_text(hjust = 0.5),
                   axis.text.x = element_text(angle = 90)) +
-            scale_color_manual(breaks= colorespais$cat_pais,
-                               values=colorespais$cols_18) +
+            scale_color_manual(breaks= ccodes$cat_pais,
+                               values= ccodes$cols_18) +
             scale_y_discrete(
                 breaks = c("pr_temabloques", "pr_temalibre", "pr_temamonotema", "pr_temapuntuales"),
                 labels = c("En bloques", "Libre", "Monotemático", "Interrogantes puntuales")) +
@@ -547,8 +559,8 @@ server <- function(input, output) {
             geom_boxplot(aes(cat_pais, 
                              as.numeric(ncat_competencia), 
                              fill = cat_pais)) +
-            scale_fill_manual(breaks= colorespais$cat_pais,
-                              values=colorespais$cols_18) +
+            scale_fill_manual(breaks= ccodes$cat_pais,
+                              values= ccodes$cols_18) +
             theme_minimal() +
             theme(legend.position = "none",
                   plot.title = element_text(hjust = 0.5),
@@ -565,8 +577,8 @@ server <- function(input, output) {
             geom_boxplot(aes(cat_pais,
                              as.numeric(ncat_ppac), 
                              fill = cat_pais)) +
-            scale_fill_manual(breaks= colorespais$cat_pais,
-                              values=colorespais$cols_18) +
+            scale_fill_manual(breaks= ccodes$cat_pais,
+                              values= ccodes$cols_18) +
             theme_minimal() +
             theme(legend.position = "none",
                   plot.title = element_text(hjust = 0.5),
@@ -633,25 +645,57 @@ server <- function(input, output) {
         df.dend
     })
     
-    df.filt.cluster_tabla <- eventReactive(input$action_interdependencia, {
+    output$selector <- renderUI({
+        selectInput(inputId="selector2", h6("Vizualizar indicador..."), 
+                    choices = input$selec_indicadores, 
+                    selected = input$selec_indicadores[2]) 
+    })
+    
+    df.filt.mapa <- eventReactive(input$action_interdependencia2, {
         
-        df.filt <- codebook_cluster_pais %>%  
-            filter(Indicador %in% input$selec_indicadores)
+        df.filt <- mapear %>%
+            select(c(long, lat, group, ccode, input$selector2)) %>% 
+            rename(plotear = input$selector2)
         df.filt 
         
-    })    
+    })  
     
-    output$plot_cluster <- renderPlot({
-        df.filt.cluster() %>% 
-         set("labels_col", value = c(brewer.pal(n = 9, name = "Paired")), k=9) %>%
-         set("branches_lty", 1) %>%
-         set("branches_k_color", value =  c(brewer.pal(n = 9, name = "Paired")), k=9) %>% 
-        plot(axes = F)
-    }) 
+    output$plot_mapa <- renderPlot({
+    
+        df.filt.mapa() %>% 
+        ggplot() +
+        geom_polygon(aes(x = long, 
+                         y = lat, 
+                         group = group, 
+                         fill = ccode, 
+                         alpha = plotear)) + 
+        scale_colour_manual(breaks = ccodes$ccode,
+                            values = ccodes$cols_18) +
+         coord_fixed(1) +
+        theme_void() +
+        theme(legend.position = "none")
+        
+    })
+    
+    df.filt.cluster_tabla <- eventReactive(input$action_interdependencia2, {
+        
+        df.filt <- codebook_cluster_pais %>%  
+            filter(Indicador == input$selector2)
+        df.filt 
+        
+    })  
     
     output$tabla_indicadores <- renderTable( 
         df.filt.cluster_tabla(), hover = T
     )
+    
+    output$plot_cluster <- renderPlot({
+        df.filt.cluster() %>% 
+            set("labels_col", value = c(brewer.pal(n = 9, name = "Paired")), k=9) %>%
+            set("branches_lty", 1) %>%
+            set("branches_k_color", value =  c(brewer.pal(n = 9, name = "Paired")), k=9) %>% 
+            plot(axes = F)
+    }) 
     
     # OUTPUTS CODEBOOK ########
     

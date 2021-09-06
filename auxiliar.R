@@ -1,4 +1,4 @@
-# library(tidyverse)
+library(tidyverse)
 # library(shiny)
 # library(hrbrthemes)
 # library(RColorBrewer)
@@ -55,8 +55,10 @@
 base <- read.csv("data/base.csv", stringsAsFactors = F)
 colorespais <- base %>% 
   distinct(cat_pais, cols_18)
-require(ggplot2)
 require(ggrepel)
+
+require(ggplot2)
+
 require(maps)
 require(mapdata)
 install.packages(c("maps", "mapdata"))
@@ -66,39 +68,51 @@ ccode <- c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colom
                         "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
                         "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
                         "Dominica", "Saba") %>% as.tibble()
-colorespais <- readxl::read_xlsx("colorespais.xlsx")
+#colorespais <- readxl::read_xlsx("colorespais.xlsx") %>% 
+#  mutate(cat_pais2 = str_replace(cat_pais,"Republica Dominicana", "Rep. Dom.")) 
+#colorespais %>% write.csv("ccodes.csv")
 
-colorespais %>% writexl::write_xlsx("colorespais.xlsx") 
-mapa <- borders("world", regions = c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colombia", "Venezuela",
-                                     "Bolivia", "Ecuador", "Chile", "Paraguay", "Peru", "Guyana", "Panama", "Costa Rica", 
-                                     "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
-                                     "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
-                                     "Dominica", "Saba"), 
-                fill = "grey70", colour = "black")
-
-base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
-rownames(base_cluster_pais)
-mapear <- colorespais %>% 
-  left_join(base_cluster_pais) 
-
-data_mapa <- map_data("world2", mapear$ccode) %>%
-  rename(ccode = "region") %>% 
-  left_join(mapear)
-
-data_mapa %>% 
-ggplot() +
-  geom_polygon(aes(x=long, 
-                   y = lat, 
-                   group = group, 
-                   fill=ccode, 
-                   alpha= n_debates_total)) + 
-  scale_colour_manual(breaks = mapear$ccode,
-                      values = mapear$cols_18) +
-  coord_fixed(1.3) +
-  theme_void() +
-  theme(legend.position = "none")
-
-
-ggplot() + mapa + theme_bw() + xlab("Longitude (decimals)") + ylab("Latitude (decimals)") + 
-  theme(panel.border = element_blank(), panel.grid.major = element_line(colour = "grey80"), panel.grid.minor = element_blank())
-  
+#colorespais %>% writexl::write_xlsx("colorespais.xlsx") 
+# 
+# 
+# mapa <- borders("world", regions = c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colombia", "Venezuela",
+#                                      "Bolivia", "Ecuador", "Chile", "Paraguay", "Peru", "Guyana", "Panama", "Costa Rica", 
+#                                      "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
+#                                      "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
+#                                      "Dominica", "Saba"), 
+#                 fill = "grey70", colour = "black")
+# 
+# 
+# ggplot() + mapa + theme_bw() + xlab("Longitude (decimals)") + ylab("Latitude (decimals)") + 
+#   theme(panel.border = element_blank(), panel.grid.major = element_line(colour = "grey80"), panel.grid.minor = element_blank())
+# 
+# 
+# ccodes <-  read.csv("ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
+# base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
+# 
+# mapear <- ccodes %>% 
+#   left_join(base_cluster_pais %>%  select(-X)) 
+# 
+# data_mapa <- map_data("world2", mapear$ccode) %>%
+#   rename(ccode = "region") %>% 
+#   left_join(mapear)
+# 
+# mapear %>% 
+#   ggplot() +
+#   geom_polygon(aes(x = long, 
+#                    y = lat, 
+#                    group = group, 
+#                    fill = ccode, 
+#                    alpha = ncat_meancompetencia)) + 
+#   scale_colour_manual(breaks = ccodes$ccode,
+#                       values = ccodes$cols_18) +
+#   coord_fixed(1) +
+#   theme_void() +
+#   theme(legend.position = "none")
+# 
+# mapear  <-    map_data("world2", ccodes$ccode) %>%
+#   rename(ccode = "region") %>% 
+#   left_join(ccodes) %>% 
+#   left_join(base_cluster_pais %>%  select(-X))
+# 
+# mapear %>%  write.csv("mapear.csv")
