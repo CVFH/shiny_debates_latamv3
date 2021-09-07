@@ -1,6 +1,6 @@
 # library(tidyverse)
 # # 
-# # base <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_finalv3.xlsx")
+# base <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_finalv3.xlsx")
 # # base %>% write.csv("./data/base.csv")
 # # 
 # # elecciones <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_elecciones.xlsx")
@@ -46,3 +46,4 @@
 #           n_debates_ano_pais = replace_na(n_debates_ano_pais, 0) ) %>% 
 #   left_join(colorespais)
 # base_anual %>% write.csv("./data/base_anual.csv")
+

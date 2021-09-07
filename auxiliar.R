@@ -20,7 +20,7 @@ library(tidyverse)
 
 # preparacion de datos ##########
 
-# base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv", stringsAsFactors = F)
+#base <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base.csv", stringsAsFactors = F)
 # base_años <-  read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_años.csv", stringsAsFactors = F)
 # base_organizadores <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_organizadores.csv", stringsAsFactors = F)
 # base_formatos <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/base_formatos.csv", stringsAsFactors = F)
@@ -51,23 +51,23 @@ library(tidyverse)
 #   geom_point((aes(ncat_eleccion,
 #                   n_catformatos )))
 
-
-base <- read.csv("data/base.csv", stringsAsFactors = F)
-colorespais <- base %>% 
-  distinct(cat_pais, cols_18)
-require(ggrepel)
-
-require(ggplot2)
-
-require(maps)
-require(mapdata)
-install.packages(c("maps", "mapdata"))
-
-ccode <- c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colombia", "Venezuela",
-                        "Bolivia", "Ecuador", "Chile", "Paraguay", "Peru", "Guyana", "Panama", "Costa Rica", 
-                        "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
-                        "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
-                        "Dominica", "Saba") %>% as.tibble()
+# armado de mapa ####################
+# base <- read.csv("data/base.csv", stringsAsFactors = F)
+# colorespais <- base %>% 
+#   distinct(cat_pais, cols_18)
+# #require(ggrepel)
+# 
+# require(ggplot2)
+# 
+# require(maps)
+# require(mapdata)
+# install.packages(c("maps", "mapdata"))
+# 
+# ccode <- c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colombia", "Venezuela",
+#                         "Bolivia", "Ecuador", "Chile", "Paraguay", "Peru", "Guyana", "Panama", "Costa Rica", 
+#                         "Nicaragua", "Honduras", "El Salvador", "Belize", "Guatemala", "Mexico", "Trinidad and Tobago",
+#                         "Caribe", "Puerto Rico", "Dominican Republic", "Haiti", "Jamaica", "Cuba", "Bahamas", "Antiles",
+#                         "Dominica", "Saba") %>% as.tibble()
 #colorespais <- readxl::read_xlsx("colorespais.xlsx") %>% 
 #  mutate(cat_pais2 = str_replace(cat_pais,"Republica Dominicana", "Rep. Dom.")) 
 #colorespais %>% write.csv("ccodes.csv")
@@ -116,3 +116,11 @@ ccode <- c("Brazil", "Uruguay", "Argentina", "French Guiana", "Suriname", "Colom
 #   left_join(base_cluster_pais %>%  select(-X))
 # 
 # mapear %>%  write.csv("mapear.csv")
+
+
+
+# basep <- base %>% 
+#   filter(cat_pais =="Argentina" & ncat_eleccion==1965)
+# 
+# nrow(basep)
+

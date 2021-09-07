@@ -19,15 +19,15 @@ base_formatos <- read.csv("data/base_formatos.csv", stringsAsFactors = F)
 base_temas <- read.csv("data/base_temas.csv", stringsAsFactors = F)
 base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F)
 codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "Latin-1")
-base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
+base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F) %>% select(-c(X,X.1))
 codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "Latin-1")
-ccodes <-  read.csv("ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
-mapear <-  read.csv("mapear.csv", stringsAsFactors = F, encoding = "Latin-1")
+ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
+mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "Latin-1")
 
 coloresformato <- base_formatos %>% 
     distinct(cat_tipo_formato, colores_formato)
 
-# Define UI for application that draws a histogram
+# UI #####################
 ui <- navbarPage(
     theme = bs_theme(version = 4, bootswatch = "sandstone"),
     title = "Debates presidenciales en América Latina",
@@ -36,8 +36,6 @@ ui <- navbarPage(
                  tabPanel("Análisis por Dimensión", 
                           
                           fluidPage(
-
-                                  # Sidebar with a slider input for number of bins 
                                   sidebarLayout(
                                       sidebarPanel(
                                           selectInput(inputId = "selec_pais", 
@@ -50,26 +48,73 @@ ui <- navbarPage(
                                                       label = "Seleccione un período", 
                                                       min = 1960, 
                                                       max = 2025,
-                                                      value = c(min(base$ncat_eleccion), max(base$ncat_eleccion))),
+                                                      value = c(min(base$ncat_eleccion), max(base$ncat_eleccion)),
+                                                      sep = ""),
                                           
                                           actionButton("action_dimensiones", 
-                                                       "Visualizar selección")
+                                                       "Visualizar selección"),
+                                          
+                                          br(),
+                                          br(),
+                                          
+                                          textOutput("text_rues")
                                       ),
                                       
-                                      # Show a plot of the generated distribution
                                       mainPanel(
+                                          
+                                          p("Nuestra propuesta examina los variables modos en que 
+                                          los debates presidenciales televisados 
+                                          se realizan en  en América Latina. 
+                                            Organizamos las diferencias a lo largo de cuatro dimensiones."),
+                                          br(),
+                                          
                                       tabsetPanel(
                                           tabPanel("Arraigo", 
                                                    
                                                    h2("Grado de arraigo de la práctica", align = "center"),
                                                    
+                                                   p("La primera dimensión de variación estudiada es ",
+                                                   em("la penetración de la práctica"), 
+                                                     ": el lugar que los debates ocupan para las elecciones locales"),
+                                                   
+                                                   p("Esta, a su vez, es apreciable en dos subdimensiones:
+                                                     la rutinización de los debates, la primera, 
+                                                     su importancia, la segunda"),
+                                                   
+                                                   
+                                                   p(
+                                                       "La ", strong("rutinización "), "indica qué tan predecible o esperables son los debates, es decir,
+                                                       qué tan acostumbradas están las personas de un país a participar de, 
+                                                       organizar y mirar debates entre candidatos a la presidencia en televisión.
+                                                       Para apreciar esta rutinización, podemos mirar la antigüedad de la práctica, 
+                                                       su constancia o inconstancia a través del tiempo 
+                                                       y la cantidad de debates que tienen lugar en un proceso electoral"
+                                                   ),
+                                                   
                                                    h4("Cantidad de debates realizados"),
-                                                   h6("En el tiempo y por país"),
+                                                   h5("En el tiempo y por país"),
+                                                   
+                                                   p("Encontramos diferencias en qué tan rutinarios son los debates, 
+                                                     en el tiempo y entre países."),
                                                    
                                                    plotlyOutput("ev_anual"),
                                                    
+                                                   br(),
+                                                   p("Al margen de qué tan rutinarios o usuales son, no todos los debates
+                                                     tienen la misma ",strong("importancia"), ", no siempre ocupan el centro de atención.
+                                                     Para medir esta subdimensión del grado de penetración de la práctica,
+                                                     podríamos comparar niveles de audiencias o de cobertura mediática. 
+                                                     Lamentablemente, hay pocos datos comparables para los casos de nuestra muestra.
+                                                     También podemos apreciar qué tan recordados son los debates a lo largo de la historia.
+                                                     Algunos son olvidados, otros impregnan la memoria colectiva.
+                                                     Finalmente, algunos debates son desestimados por los candidatos: estos se ausentan, 
+                                                     y al hacerlo, sobre todo si son candidatos populares, 
+                                                     repercuten en el interés y la magnitud del público que convocan."),
+                                                   
+                                                   p("A continuación exponemos una representación gráfica de la última medida"),
+                                                   
                                                    h4("Índice de ausencias"),
-                                                   h6("Promedio en relación a la cantidad de debates en una elección"),
+                                                   h5("Promedio en relación a la cantidad de debates en una elección"),
                                                    
                                                    plotOutput("ausencias")
 
@@ -79,8 +124,16 @@ ui <- navbarPage(
                                                    
                                                    h2("Tipo de organizador de los debates", align = "center"),
                                                    
+                                                   p("La segunda dimensión analizada es ",
+                                                     em("el tipo de organizador de los debates"), ". 
+                                                     Es interesante ver quién toma a su cargo la realización de estos encuentros,
+                                                     ya que suele tener que arbitrar las conflictivas negociaciones entre candidatos,
+                                                     y asegurar que se cumplan los compromisos asumidos."),
+                                                   p("Medios privados, medios públicos, Estado, organizaciones de la sociedad civil y del ámbito educativo 
+                                                     son los actores que han intervenido en la historia latina de la práctica."),
+                                                   
                                                    h4("Tipo de organizador de los debates"),
-                                                   h6("A través del tiempo, por país"),
+                                                   h5("A través del tiempo, por país"),
                                                    
                                                    plotOutput("organizadores"),
                                                    
@@ -92,8 +145,8 @@ ui <- navbarPage(
                                           tabPanel("Formatos", 
                                                    
                                                    h2("Formatos de los debates", align = "center"),
-                                                   
-                                                   p("En su máxima amplitud, el “formato” de un debate implica una combinación de múltiples decisiones estéticas, técnicas y, crucialmente, relativas a los lineamientos de la discusión.
+                                             
+                                                   p("En su máxima amplitud, el ", em("formato "), "de un debate implica una combinación de múltiples decisiones estéticas, técnicas y, crucialmente, relativas a los lineamientos de la discusión.
                                                    Todas ellas pueden afectar la manera en que es emitido y receptado el encuentro y, por este motivo, 
                                                    suelen ser objeto de intensas disputas entre los equipos de campaña, periodistas y los organizadores."),
                                                    
@@ -102,7 +155,7 @@ ui <- navbarPage(
                                                      la disposición temática, la otra."),
                                                    
                                                    h4("Esquemas de interacción"),
-                                                   
+                                                   p(" "),
                                                    p("Por patrones de interacción e intercambio, nos referimos a los modos en los que se acuerda la participación de los candidatos, esto es, a los diálogos o exposiciones que se espera que estos entablen con base en las reglas negociadas de manera previa al encuentro.
                                                      En pocas palabras, esta subdimensión contempla si hay preguntas y, en caso afirmativo, quién las hace y cómo se espera que los candidatos hablen o respondan. "),
 
@@ -111,35 +164,35 @@ ui <- navbarPage(
                                                    
                                                    img(src = 'duelo.png', height = 140, width = 290),
                                                    img(src = "libre.png", height = 140, width = 290),
-                                                  
+                                                   p(" "),
                                                    p("En segundo lugar, observamos las interacciones propuestas entre los candidatos y distintos tipos de actores, si las hubiera. 
+                                                    A veces preguntan los “moderadores” del evento"), 
                                                    
-                                                     A veces preguntan los “moderadores” del evento"), 
-                                                   
-                                                     img(src = "moderador.png", height = 140, width = 290),
-                                                   
-                                                     p("Puede haber un panel de “periodistas”, uno de “expertos” (destacados por sus credenciales académicas), 
+                                                   img(src = "moderador.png", height = 140, width = 290),
+                                                   p(" "),
+                                                   p("Puede haber un panel de “periodistas”, uno de “expertos” (destacados por sus credenciales académicas), 
                                                        o uno con representantes de “sectores” de la sociedad civil."),
                                                    
                                                    img(src = "periodistas.png", height = 140, width = 290),
                                                    img(src = "sectores.png", height = 140, width = 290),
-                                                   
+                                                   p(" "),
                                                    p("Alternativamente, se autorizan a veces preguntas por parte del público, entendido como la masa indiferenciada de ciudadanos, 
                                                    sea de manera “virtual”, o sea encarnada en algunos individuos “presentes” en el piso."), 
                                                    
                                                    img(src = "virtuales.png", height = 140, width = 290),
                                                    img(src = "presentes.png", height = 140, width = 290),
-                                                   
+                                                   p(" "),
                                                    p("Finalmente, existen debates que no proponen diálogo strictu sensu alguno, formato que calificamos de “expositivo”."),
-                                                   
-                                                   
+                                               
+                                                   h5("Variación en los esquemas de interacción"),
+                                                 
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                    plotOutput("formatos_t"),
                                                    plotOutput("formatos_p")
                                                    ) ,
                                                    
-                                                   h6("Conversión ordinal de esquemas de interacción"),
+                                                   h5("Conversión ordinal de esquemas de interacción"),
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                        plotOutput("cuanti_c"),
@@ -156,6 +209,7 @@ ui <- navbarPage(
                                                      o (3) incluso versa sobre un único tema –en un debate “monotemático”–, 
                                                      o, por último, (4) lo dicho por los candidatos puede pautarse mediante la realización de “preguntas” muy específicas por parte de terceros a los candidatos."),
                                                    
+                                                   h5("Variación en la estructuración temática de los debates"),
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                        plotOutput("temas_t"),
@@ -167,8 +221,13 @@ ui <- navbarPage(
                                                    
                                                    h2("Normativa en la materia", align = "center"),
                                                    
+                                                   p("Si bien durante años los debates fueron librados
+                                                     al acuerdo entre las partes -candidatos, organizadores, medios-,
+                                                     al día de hoy muchos países han sancionado regulaciones. Así, "
+                                                     , em("la normativa"), "constituye otra dimensión en la cual estudiar la variación."),
+                                                   p("En esta sección exponemos la información recabada a este respecto"),
                                                    h4("Espíritu de la norma"),
-                                                   h6("desde el punto de vista de..."),
+                                                   h5("desde el punto de vista de..."),
                                                    
                                                    tableOutput("tabla_cambiosnormativa"),
                                                    
@@ -182,75 +241,83 @@ ui <- navbarPage(
                               ))),
                  
                  # PANEL INTERDEPENDENCIA ##########
+    
                  tabPanel("Interdependencia", 
                           fluidPage(
-                              sidebarLayout(
-                                  sidebarPanel(
-                                      
-                                      selectInput(inputId = "selec_indicadores", 
-                                                  label = "Seleccione los indicadores a incluir en el modelo", 
-                                                  choices = colnames(base_cluster_pais),
-                                                  selected = c("n_indexausentes",
-                                                               "n_interrupciones",
-                                                               "ncat_meanppac", 
-                                                               "ncat_meancompetencia",
-                                                               "n_sd_competencia",
-                                                               "n_sd_ppac",
-                                                               "cat_pais"), 
-                                                  multiple = TRUE),
-                                      
-                                      selectInput(inputId = "selec_link", 
-                                                    label = "Elija método de agregación",
-                                                    choices = c("complete", "ward"),
-                                                    selected = "complete", 
-                                                  multiple = FALSE ),
-                                      
-                                      actionButton("action_interdependencia", 
-                                                   "Ejecutar análisis")
-                                      ),
-                                  
-                                  mainPanel(
-                                      
-                                      h2("Análisis de clusters", align = "center"),
-                                      
-                                      
-                                      tags$div(
-                                          tags$p("El análisis de clusters se utiliza para agrupar “objetos” 
-                                          conforme a sus características. 
-                                          Es es una familia de técnicas cuyo proceder se basa en algún algoritmo 
-                                          que, en etapas sucesivas, 
-                                      compara alguna medida de la similitud de las observaciones 
-                                      a lo largo de más de una variable y une a las que más se parecen, 
-                                      repitiendo el procedimiento hasta arribar a algún número predeterminado de grupos (“clusters”)."),
-                                          
-                                          tags$p("En nuestro caso, se trata de comparar, clasificar y reunir a los países de nuestra muestra 
-                                      conforme a los modos en que en ellos se han realizado los debates presidenciales televisados.
-                                      Hemos optado por seguir un método jerárquico de agregación de los resultados."),  
-                                      
-                                          tags$p("Aquí se puede expermientar con distintas especificaciones del modelo: 
-                                        seleccionar tanto diferentes indicadores 
-                                        con base en los cuales comparar los países, 
-                                        y utilizar dos abordajes diferentes 
-                                        para medir la similitud entre los sucesivos grupos.") ),
-                                      
-                                      
-                                      h4("Selección de indicadores"),
-                                       p("en el mapa y la tabla a continuación se puede contrastar
-                                         la información que proveen distintos indicadores agregados"), 
-                                      
-                                      uiOutput("selector"),
-                                      actionButton("action_interdependencia2", 
-                                                   "Explorar indicador"),
-                                      plotOutput("plot_mapa"),
-                                      tableOutput('tabla_indicadores'),
-                                      
-                                      h4("Resultado del análisis de clusters"),
-                                      p("El dendograma a continuación muestra el resultado de la 
-                                        especificación elegida"),
-                                      plotOutput("plot_cluster")
-                                  )
-                              )
-                          )),
+                            h2("Análisis de clusters", align = "center"),
+                            
+                            tags$div(
+                                tags$p("El análisis de clusters se utiliza para agrupar “objetos” 
+                                conforme a sus características. 
+                                Es es una familia de técnicas cuyo proceder se basa en algún algoritmo 
+                                que, en etapas sucesivas, 
+                            compara alguna medida de la similitud de las observaciones 
+                            a lo largo de más de una variable y une a las que más se parecen, 
+                            repitiendo el procedimiento hasta arribar a algún número predeterminado de grupos (“clusters”)."),
+                                
+                                tags$p("En nuestro caso, se trata de comparar, clasificar y reunir a los países de nuestra muestra 
+                            conforme a los modos en que en ellos se han realizado los debates presidenciales televisados.
+                            Hemos optado por seguir un método jerárquico de agregación de los resultados."),  
+                            
+                                tags$p("Aquí se puede expermientar con distintas especificaciones del modelo: 
+                              seleccionar tanto diferentes indicadores 
+                              con base en los cuales comparar los países, 
+                              y utilizar dos abordajes diferentes 
+                              para medir la similitud entre los sucesivos grupos.") ),
+                        
+                            sidebarLayout(
+                                sidebarPanel(
+                                    h4("Selección de indicadores"),
+                                    p("En el mapa y la tabla a continuación se puede contrastar
+                               la información que proveen distintos indicadores agregados"),
+                                    selectInput(inputId = "selector",
+                                                label = "Vizualizar indicador...", 
+                                                choices = colnames(base_cluster_pais %>% select(-cat_pais)),
+                                                selected = "n_indexausentes", 
+                                                multiple = F),
+                                    
+                                    actionButton("action_interdependencia2", 
+                                                 "Explorar indicador")
+                                    ),
+                                    mainPanel(
+                                    plotOutput("plot_mapa"),
+                                    tableOutput('tabla_indicadores')
+                                    )
+                                 ),
+                            
+                            sidebarLayout(
+                                sidebarPanel(
+                                    h4("Especificación del modelo"),
+                                    selectInput(inputId = "selec_indicadores", 
+                                                label = "Seleccione los indicadores a incluir en el modelo", 
+                                                choices = colnames(base_cluster_pais),
+                                                selected = c("n_indexausentes",
+                                                             "n_interrupciones",
+                                                             "ncat_meanppac", 
+                                                             "ncat_meancompetencia",
+                                                             "n_sd_competencia",
+                                                             "n_sd_ppac",
+                                                             "cat_pais"), 
+                                                multiple = TRUE),
+                                    
+                                    selectInput(inputId = "selec_link", 
+                                                label = "Elija método de agregación",
+                                                choices = c("complete", "ward"),
+                                                selected = "complete", 
+                                                multiple = FALSE ),
+                                    
+                                    actionButton("action_interdependencia", 
+                                                 "Ejecutar análisis")
+                                        ),
+                                    mainPanel(
+                                    h4("Resultado del análisis de clusters"),
+                                    p("El dendograma a continuación muestra el resultado de la 
+                                      especificación elegida:"),
+                                    plotOutput("plot_cluster")
+                            )
+                            )
+                          )
+                          ),
                  
                  # PANEL CODEBOOK ##########
                  tabPanel("Codebook", 
@@ -303,6 +370,14 @@ server <- function(input, output) {
             filter(ncat_eleccion >= input$selec_t[1] & ncat_eleccion <= input$selec_t[2] )
     })
     
+    output$text_novalues <- renderText({ 
+        if (nrow(df.filt_base_dimensiones())==0) {
+            expr = "Ojo!: no hay debates en el período para los países seleccionados"
+        } else {
+            expr = ""
+        }
+    })
+    
     output$ev_anual <- renderPlotly({
 
         ggplotly(
@@ -331,7 +406,7 @@ server <- function(input, output) {
     output$ausencias <- renderPlot({
        
          df.filt_base_dimensiones() %>% 
-        filter(ncat_ronda== 1) %>% 
+        filter(ncat_ronda == 1) %>% 
             group_by(ncat_eleccion, cat_pais, cols_18) %>% 
             summarise(cantidad_debates_ronda = n(),
                       mean_indexausentes = mean(n_indexausentes, na.rm = TRUE)) %>% 
@@ -596,8 +671,7 @@ server <- function(input, output) {
             filter(ncat_eleccion >= input$selec_t[1] & ncat_eleccion <= input$selec_t[2] ) 
         df.filt
     }) 
-    
-    
+
     output$tabla_cambiosnormativa <- renderTable( 
         df.filt_normativa() %>%
             group_by(cat_pais,
@@ -629,7 +703,6 @@ server <- function(input, output) {
         
     )
 
-    
     # OUTPUTS INTERDEPENDENCIA ########
     
     df.filt.cluster <- eventReactive(input$action_interdependencia, {
@@ -645,17 +718,11 @@ server <- function(input, output) {
         df.dend
     })
     
-    output$selector <- renderUI({
-        selectInput(inputId="selector2", h6("Vizualizar indicador..."), 
-                    choices = input$selec_indicadores, 
-                    selected = input$selec_indicadores[2]) 
-    })
-    
     df.filt.mapa <- eventReactive(input$action_interdependencia2, {
         
         df.filt <- mapear %>%
-            select(c(long, lat, group, ccode, input$selector2)) %>% 
-            rename(plotear = input$selector2)
+            select(c(long, lat, group, ccode, cat_pais, input$selector)) %>% 
+            rename(plotear = input$selector)
         df.filt 
         
     })  
@@ -667,10 +734,11 @@ server <- function(input, output) {
         geom_polygon(aes(x = long, 
                          y = lat, 
                          group = group, 
-                         fill = ccode, 
-                         alpha = plotear)) + 
-        scale_colour_manual(breaks = ccodes$ccode,
-                            values = ccodes$cols_18) +
+                         colour = ccode, 
+                         alpha = plotear),
+                     fill = "black") + 
+            scale_colour_manual(breaks = ccodes$ccode,
+                                values = ccodes$cols_18) +
          coord_fixed(1) +
         theme_void() +
         theme(legend.position = "none")
@@ -680,7 +748,7 @@ server <- function(input, output) {
     df.filt.cluster_tabla <- eventReactive(input$action_interdependencia2, {
         
         df.filt <- codebook_cluster_pais %>%  
-            filter(Indicador == input$selector2)
+            filter(Indicador == input$selector)
         df.filt 
         
     })  
