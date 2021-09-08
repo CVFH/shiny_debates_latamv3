@@ -47,3 +47,20 @@
 #   left_join(colorespais)
 # base_anual %>% write.csv("./data/base_anual.csv")
 
+
+# cambio encoding "###########
+# codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "Latin-1")
+# codebook %>% write.csv("data/codebook2.csv", fileEncoding = "UTF-8" )
+# aver <- read.csv("data/codebook2.csv", stringsAsFactors = F, encoding = "UTF-8" )
+# 
+# 
+# codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "Latin-1")
+# codebook %>% select(-X) %>% write.csv("data/codebook.csv", fileEncoding = "UTF-8" )
+# base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F, encoding = "Latin-1") %>% select(-c(X,X.1))
+# base_cluster_pais %>% write.csv("data/codebook2.csv", fileEncoding = "UTF-8" )
+# codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "Latin-1") 
+# codebook_cluster_pais %>% select(-X) %>% write.csv("data/codebook_cluster_pais.csv", fileEncoding = "UTF-8" )
+# ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
+# ccodes %>% select(-X) %>% write.csv("data/ccodes.csv", fileEncoding = "UTF-8" )
+# mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "Latin-1")
+# mapear %>% select(-X) %>% write.csv("data/mapear.csv", fileEncoding = "UTF-8" )

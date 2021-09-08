@@ -1,103 +1,149 @@
 "","Variable","Descripcion","Tipo"
-"1","id_debate","CÛdigo ˙nico de identificaciÛn de un debate.","id"
-"2","cat_pais","Nombre del paÌs.","categÛrica"
-"3","ncat_eleccion","AÒo electoral. Entendemos que una elecciÛn es un ciclo largo que comprende tanto la primera como la segunda vuelta, si la hubiera. En el caso de que una y otra se celebren en aÒos diferentes (la primera ronda a fines de uno, el ballotage a comienzos del siguiente) anotamos, arbitrariamente y a los fines de un cÛmputo ordenado, el segundo aÒo como aÒo del perÌodo electoral.","ordinal"
+"1","id_debate","C√≥digo √∫nico de identificaci√≥n de un debate.","id"
+"2","cat_pais","Nombre del pa√≠s.","categ√≥rica"
+"3","ncat_eleccion","A√±o electoral. Entendemos que una elecci√≥n es un ciclo largo que comprende tanto la primera como la segunda vuelta, si la hubiera. En el caso de que una y otra se celebren en a√±os diferentes (la primera ronda a fines de uno, el ballotage a comienzos del siguiente) anotamos, arbitrariamente y a los fines de un c√≥mputo ordenado, el segundo a√±o como a√±o del per√≠odo electoral.","ordinal"
 "4","t_fecha","Fecha del evento. En los casos de debates en serie (ver n_jornadas), se consigna la primera fecha disponible.","temporal"
 "5","ncat_ronda","Ronda electoral previa a la cual se realiza el encuentro: 1 primera, 2 ballotage.","ordinal"
-"6","t_hora","Hora de comienzo del evento, en tÈrminos locales. En MÈxico, se indica el horario ìcentralî.","temporal"
-"7","str_organizador","Nombres propios de las entidades promotoras del evento. Puede haber m·s de una organizaciÛn","cadena"
-"8","dico_streaming","Variable que toma el valor TRUE cuando el debate fue transmitido por streaming ˙nicamente, esto es, no circulÛ por medios de comunicaciÛn audiovisual ìtradicionalesî (TV abierta o por cable)","dicotÛmica"
-"9","str_titulo","TÌtulo y/o hashtag mediante el cual se promocionÛ el evento.","cadena"
-"10","str_sede","Nombre del lugar especÌfico, direcciÛn y/o ciudad en la que se llevÛ a cabo el evento.","cadena"
-"11","n_jornadas","Variable que seÒala si el debate, por decisiones logÌsticas, fue segmentado en m·s de un dÌa (y, caso afirmativo, en cu·ntos dÌas, siendo lo usual no m·s de tres). Se trata de debates con una concurrencia elevada de candidatos, en los que se sortea o se define mediante alg˙n criterio expreso su participaciÛn segmentada. Cabe subrayar que no todo organizador que haga m·s de un debate por elecciÛn est· contemplado en el criterio antedicho.","numÈrica"
-"12","n_duracion","DuraciÛn del debate, en minutos.","numÈrica"
+"6","t_hora","Hora de comienzo del evento, en t√©rminos locales. En M√©xico, se indica el horario ‚Äúcentral‚Äù.","temporal"
+"7","str_organizador","Nombres propios de las entidades promotoras del evento. Puede haber m√°s de una organizaci√≥n","cadena"
+"8","dico_streaming","Variable que toma el valor TRUE cuando el debate fue transmitido por streaming √∫nicamente, esto es, no circul√≥ por medios de comunicaci√≥n audiovisual ‚Äútradicionales‚Äù (TV abierta o por cable)","dicot√≥mica"
+"9","str_titulo","T√≠tulo y/o hashtag mediante el cual se promocion√≥ el evento.","cadena"
+"10","str_sede","Nombre del lugar espec√≠fico, direcci√≥n y/o ciudad en la que se llev√≥ a cabo el evento.","cadena"
+"11","n_jornadas","Variable que se√±ala si el debate, por decisiones log√≠sticas, fue segmentado en m√°s de un d√≠a (y, caso afirmativo, en cu√°ntos d√≠as, siendo lo usual no m√°s de tres). Se trata de debates con una concurrencia elevada de candidatos, en los que se sortea o se define mediante alg√∫n criterio expreso su participaci√≥n segmentada. Cabe subrayar que no todo organizador que haga m√°s de un debate por elecci√≥n est√° contemplado en el criterio antedicho.","num√©rica"
+"12","n_duracion","Duraci√≥n del debate, en minutos.","num√©rica"
 "13","str_presentes","Nombres propios de los candidatos presentes.","cadena"
 "14","str_ausentes","Nombres de los candidatos expresamente invitados que se ausentaron del evento.","cadena"
-"15","cat_formato","ClasificaciÛn del esquema de interacciÛn propuesto por el debate. Un debate puede proponer m·s de un esquema de interacciÛn.
-apertura: el o la moderadora sÛlo participa con una pregunta de apertura de la emisiÛn, luego pasa al lugar de mero ·rbitro de las participaciones del resto. 
-duelo: se propone un esquema que alterna preguntas y respuestas entre los diversos participantes, bajo tiempos rÌgidos y en un orden y cantidad predefinida de antemano.
-libre: se destina tiempo para que los candidatos discutan entre sÌ. En general, se propone una suerte de ìbolsa de tiempoî, de minutos que los candidatos pueden utilizar a lo largo de la discusiÛn. En ocasiones, se limita el tiempo o la cantidad m·xima de intervenciones por candidatos. Pero el orden, direcciÛn y especÌfica duraciÛn de las interpelaciones son dejadas a criterio de los participantes. 
-moderadores: el o los moderadores del evento hacen preguntas a los candidatos durante el desarrollo de la emisiÛn, sean estas o no de su autorÌa. 
-periodistas: se incluye un panel de periodistas que interroga a los candidatos.
-expertos: se incluye un panel de expertos o especialistas (cualquier personalidad distinta a un periodista) que hace preguntas a los candidatos y cuyo lugar es legitimado desde el saber.
-sectores: se incluye un panel  o se invita a personalidades a interrogar a los candidatos en calidad de representantes de alg˙n sector de la poblaciÛn en especÌfico, como sean, por ejemplo, gremios o grupos identitarios.
-virtuales: se incluyen preguntas ìvirtualesî del p˙blico a los candidatos, entendido aquÌ como la masa indiferenciada de televidentes-votantes. Por ìvirtualesî entendemos preguntas enviadas vÌa redes sociales u otros medios electrÛnicos de manera asincrÛnica, sea en formato texto o audiovisual.
-presentes: se incluyen preguntas del p˙blico a los candidatos, entendido aquÌ como la masa indiferenciada de televidentes-votantes, que en este caso acude presencialmente al piso o estudio de grabaciÛn.","categÛrica"
-"16","dico_formato_apertura","Verdadero cuando en cat_formato hay apertura","dicotÛmica"
-"17","dico_formato_libre","Verdadero cuando en cat_formato hay libre","dicotÛmica"
-"18","dico_formato_duelo","Verdadero cuando en cat_formato hay duelo","dicotÛmica"
-"19","dico_formato_moderadores","Verdadero cuando en cat_formato hay moderadores","dicotÛmica"
-"20","dico_formato_periodistas","Verdadero cuando en cat_formato hay periodistas","dicotÛmica"
-"21","dico_formato_sectores","Verdadero cuando en cat_formato hay sectores","dicotÛmica"
-"22","dico_formato_expertos","Verdadero cuando en cat_formato hay expertos","dicotÛmica"
-"23","dico_formato_virtuales","Verdadero cuando en cat_formato hay virtuales","dicotÛmica"
-"24","dico_formato_presentes","Verdadero cuando en cat_formato hay presentes","dicotÛmica"
-"25","str_moderadores","Nombres propios de los moderadores. Cabe anotar que la diferenciaciÛn entre panelistas y moderadores suele ser muy clara, conforme a los roles y posiciones en el escenario que ocupan. La ˙nica excepciÛn la constituyen algunos debates del caso colombiano, en la que los roles se confunden y/o intercambian. Estos casos fueron identificados en longstr_formato.","cadena"
+"15","cat_formato","Clasificaci√≥n del esquema de interacci√≥n propuesto por el debate. Un debate puede proponer m√°s de un esquema de interacci√≥n.
+
+
+apertura: el o la moderadora s√≥lo participa con una pregunta de apertura de la emisi√≥n, luego pasa al lugar de mero √°rbitro de las participaciones del resto. 
+
+
+duelo: se propone un esquema que alterna preguntas y respuestas entre los diversos participantes, bajo tiempos r√≠gidos y en un orden y cantidad predefinida de antemano.
+
+
+libre: se destina tiempo para que los candidatos discutan entre s√≠. En general, se propone una suerte de ‚Äúbolsa de tiempo‚Äù, de minutos que los candidatos pueden utilizar a lo largo de la discusi√≥n. En ocasiones, se limita el tiempo o la cantidad m√°xima de intervenciones por candidatos. Pero el orden, direcci√≥n y espec√≠fica duraci√≥n de las interpelaciones son dejadas a criterio de los participantes. 
+
+
+moderadores: el o los moderadores del evento hacen preguntas a los candidatos durante el desarrollo de la emisi√≥n, sean estas o no de su autor√≠a. 
+
+
+periodistas: se incluye un panel de periodistas que interroga a los candidatos.
+
+
+expertos: se incluye un panel de expertos o especialistas (cualquier personalidad distinta a un periodista) que hace preguntas a los candidatos y cuyo lugar es legitimado desde el saber.
+
+
+sectores: se incluye un panel  o se invita a personalidades a interrogar a los candidatos en calidad de representantes de alg√∫n sector de la poblaci√≥n en espec√≠fico, como sean, por ejemplo, gremios o grupos identitarios.
+
+
+virtuales: se incluyen preguntas ‚Äúvirtuales‚Äù del p√∫blico a los candidatos, entendido aqu√≠ como la masa indiferenciada de televidentes-votantes. Por ‚Äúvirtuales‚Äù entendemos preguntas enviadas v√≠a redes sociales u otros medios electr√≥nicos de manera asincr√≥nica, sea en formato texto o audiovisual.
+
+
+presentes: se incluyen preguntas del p√∫blico a los candidatos, entendido aqu√≠ como la masa indiferenciada de televidentes-votantes, que en este caso acude presencialmente al piso o estudio de grabaci√≥n.","categ√≥rica"
+"16","dico_formato_apertura","Verdadero cuando en cat_formato hay apertura","dicot√≥mica"
+"17","dico_formato_libre","Verdadero cuando en cat_formato hay libre","dicot√≥mica"
+"18","dico_formato_duelo","Verdadero cuando en cat_formato hay duelo","dicot√≥mica"
+"19","dico_formato_moderadores","Verdadero cuando en cat_formato hay moderadores","dicot√≥mica"
+"20","dico_formato_periodistas","Verdadero cuando en cat_formato hay periodistas","dicot√≥mica"
+"21","dico_formato_sectores","Verdadero cuando en cat_formato hay sectores","dicot√≥mica"
+"22","dico_formato_expertos","Verdadero cuando en cat_formato hay expertos","dicot√≥mica"
+"23","dico_formato_virtuales","Verdadero cuando en cat_formato hay virtuales","dicot√≥mica"
+"24","dico_formato_presentes","Verdadero cuando en cat_formato hay presentes","dicot√≥mica"
+"25","str_moderadores","Nombres propios de los moderadores. Cabe anotar que la diferenciaci√≥n entre panelistas y moderadores suele ser muy clara, conforme a los roles y posiciones en el escenario que ocupan. La √∫nica excepci√≥n la constituyen algunos debates del caso colombiano, en la que los roles se confunden y/o intercambian. Estos casos fueron identificados en longstr_formato.","cadena"
 "26","str_panelistas","Nombres propios de los panelistas.","cadena"
-"27","n_panelistas","Cantidad de panelistas de un debate.","numÈrica"
-"28","n_moderadores","Cantidad de moderadores de un debate.","numÈrica"
-"29","ncat_ppac","Variable que busca ìordenarî quÈ tanto participa el p˙blico a la hora de interrogar a los candidatos en un debate. Caben dos aclaraciones. Una, en todos los casos, la participaciÛn de la ciudadanÌa o audiencia es controlada, fiscalizada y/o mediada por los organizadores del evento. Segunda, podrÌa ser interesante diferenciar adem·s si hay p˙blico presente o no en el estudio, sin embargo, desistimos de hacerlo ya que no disponemos de registro suficiente para esta tarea. 
-0: no hay referencias al p˙blico en la producciÛn del debate
-1: las preguntas formuladas por los moderadores son adjudicadas a la autorÌa de la audiencia o ciudadanÌa, pero la referencia es inespecÌfica.
-2: las preguntas formuladas por los moderadores son adjudicadas a la autorÌa de la audiencia o ciudadanÌa, con nombre propio 
-3: corresponde a la categorÌa ìvirtualesî de cat_formato
-4: corresponde a la categorÌa ìpresentesî de cat_formato","ordinal"
-"30","ncat_competencia","Variable categÛrica ordinal que indica la medida en que el formato invitaba a los candidatos a establecer di·logos (y, de allÌ, discusiones) entre sÌ. Se trata de un valor ""de m·xima"", es decir, que el valor 5 puede o no contemplar las posibilidades del 1 al 4. Para mayor caridad, hemos creado variables complementarias. 0: el formato no prevÈ interacciÛn entre los candidatos. 1: los candidatos tienen derecho a dirigir la palabra a otro candidato sÛlo cuando el primero hiciera una alusiÛn u ofensa personal, para responder a Èsta. Corresponde a valor TRUE en dico_ddreplica. 2: los candidatos disponen de oportunidades limitadas de tomar la palabra espont·neamente durante el evento o ciertos segmentos del mismo, para hacer una pregunta o comentario a otro candidato (que las m·s de las veces tiene tambiÈn oportunidad de responder). Se trata de una posibilidad optativa, no obligatoria. Corresponde a valor TRUE en dico_inserts. 3: los candidatos disponen de tiempo ""obligatorio"", reservado para hacer comentarios luego de las respuestas de otros contendientes. Esto, sea de manera posterior a la pregunta disparadora de un panelista, moderador o persona del p˙blico, o tras una ronda completa de exposiciones de todos los debatientes. Corresponde a valor TRUE en dico_comentarios. 4: se prevÈn segmentos de intercambios direccionados, en los cuales se espera que un candidato formule una pregunta a otro y que este le responda (y eventualmente, que haya una segunda o contra pregunta y su respectiva respuesta). El orden, tiempos y direcciÛn de la interacciÛn se encuentra predeterminados. Corresponde a la categorÌa ""duelo"" de cat_formato. 5: se reserva todo o una porciÛn del encuentro a la discusiÛn entre candidatos sin tiempos ni direcciÛn fijadas de antemano. Corresponde a la categorÌa ""libre"" de cat_formato.","ordinal"
-"31","dico_analisis","Se incluye un segmento en el cual expertos o especialistas analizan, comentan o elaboran conclusiones respecto de lo expuesto y/o discutido por los candidatos.","dicotÛmica"
-"32","dico_analytics","El programa incluye an·lisis de impacto del propio evento en RRSS en vivo, como una cobertura especial o adicional a lo que ocurre en el piso entre los debatientes.","dicotÛmica"
-"33","dico_ddreplica","Variable que consigna si en un debate se habilita un ìDerecho a RÈplicaî. Por esta modalidad, se habilita a que los candidatos intervengan espont·neamente durante el desarrollo del mismo si fueron objeto de alusiones o ataques personales. En algunos casos, mediante la evaluaciÛn de un ìjuradoî, en otros a criterio de los moderadores. Caso afirmativo, la variable toma el valor TRUE.","dicotÛmica"
-"34","dico_inserts","CategorÌa que toma el valor TRUE cuando se prevÈ la oportunidad (optativa y limitada) de que los candidatos hagan comentarios, referencias o alusiones a las respuestas o exposiciones que dem·s contendientes hacen ante la pregunta de un tercero -p˙blico, moderadores, panelistas-.","dicotÛmica"
-"35","cat_panel","Se indica quÈ sector compone el panel notado mediante la categorÌa ""expertos"" y/o ""sectores"". Para el resto de tipos de formatos, el valor es 0.","categÛrica"
-"36","ncat_panel","Similar a ncat_ppac, la variable mide quÈ tanto participa un panel de persnalidades invitadas a la hora de interrogar a los candidatos en un debate.
-0: no hay panel en el debate
-1: las preguntas formuladas por los moderadores son adjudicadas a la autorÌa de expertos o representantes de sectores sociales, de manera inespecÌfica.
-2: las preguntas formuladas por los moderadores son adjudicadas a la autorÌa de ciertos expertos o representantes de sectores, con nombre propio 
-3: las personalidades invitadas envÌan sus preguntas pregrabadas.
+"27","n_panelistas","Cantidad de panelistas de un debate.","num√©rica"
+"28","n_moderadores","Cantidad de moderadores de un debate.","num√©rica"
+"29","ncat_ppac","Variable que busca ‚Äúordenar‚Äù qu√© tanto participa el p√∫blico a la hora de interrogar a los candidatos en un debate. Caben dos aclaraciones. Una, en todos los casos, la participaci√≥n de la ciudadan√≠a o audiencia es controlada, fiscalizada y/o mediada por los organizadores del evento. Segunda, podr√≠a ser interesante diferenciar adem√°s si hay p√∫blico presente o no en el estudio, sin embargo, desistimos de hacerlo ya que no disponemos de registro suficiente para esta tarea. 
+
+
+0: no hay referencias al p√∫blico en la producci√≥n del debate
+
+
+1: las preguntas formuladas por los moderadores son adjudicadas a la autor√≠a de la audiencia o ciudadan√≠a, pero la referencia es inespec√≠fica.
+
+
+2: las preguntas formuladas por los moderadores son adjudicadas a la autor√≠a de la audiencia o ciudadan√≠a, con nombre propio 
+
+
+3: corresponde a la categor√≠a ‚Äúvirtuales‚Äù de cat_formato
+
+
+4: corresponde a la categor√≠a ‚Äúpresentes‚Äù de cat_formato","ordinal"
+"30","ncat_competencia","Variable categ√≥rica ordinal que indica la medida en que el formato invitaba a los candidatos a establecer di√°logos (y, de all√≠, discusiones) entre s√≠. Se trata de un valor ""de m√°xima"", es decir, que el valor 5 puede o no contemplar las posibilidades del 1 al 4. Para mayor caridad, hemos creado variables complementarias. 0: el formato no prev√© interacci√≥n entre los candidatos. 1: los candidatos tienen derecho a dirigir la palabra a otro candidato s√≥lo cuando el primero hiciera una alusi√≥n u ofensa personal, para responder a √©sta. Corresponde a valor TRUE en dico_ddreplica. 2: los candidatos disponen de oportunidades limitadas de tomar la palabra espont√°neamente durante el evento o ciertos segmentos del mismo, para hacer una pregunta o comentario a otro candidato (que las m√°s de las veces tiene tambi√©n oportunidad de responder). Se trata de una posibilidad optativa, no obligatoria. Corresponde a valor TRUE en dico_inserts. 3: los candidatos disponen de tiempo ""obligatorio"", reservado para hacer comentarios luego de las respuestas de otros contendientes. Esto, sea de manera posterior a la pregunta disparadora de un panelista, moderador o persona del p√∫blico, o tras una ronda completa de exposiciones de todos los debatientes. Corresponde a valor TRUE en dico_comentarios. 4: se prev√©n segmentos de intercambios direccionados, en los cuales se espera que un candidato formule una pregunta a otro y que este le responda (y eventualmente, que haya una segunda o contra pregunta y su respectiva respuesta). El orden, tiempos y direcci√≥n de la interacci√≥n se encuentra predeterminados. Corresponde a la categor√≠a ""duelo"" de cat_formato. 5: se reserva todo o una porci√≥n del encuentro a la discusi√≥n entre candidatos sin tiempos ni direcci√≥n fijadas de antemano. Corresponde a la categor√≠a ""libre"" de cat_formato.","ordinal"
+"31","dico_analisis","Se incluye un segmento en el cual expertos o especialistas analizan, comentan o elaboran conclusiones respecto de lo expuesto y/o discutido por los candidatos.","dicot√≥mica"
+"32","dico_analytics","El programa incluye an√°lisis de impacto del propio evento en RRSS en vivo, como una cobertura especial o adicional a lo que ocurre en el piso entre los debatientes.","dicot√≥mica"
+"33","dico_ddreplica","Variable que consigna si en un debate se habilita un ‚ÄúDerecho a R√©plica‚Äù. Por esta modalidad, se habilita a que los candidatos intervengan espont√°neamente durante el desarrollo del mismo si fueron objeto de alusiones o ataques personales. En algunos casos, mediante la evaluaci√≥n de un ‚Äújurado‚Äù, en otros a criterio de los moderadores. Caso afirmativo, la variable toma el valor TRUE.","dicot√≥mica"
+"34","dico_inserts","Categor√≠a que toma el valor TRUE cuando se prev√© la oportunidad (optativa y limitada) de que los candidatos hagan comentarios, referencias o alusiones a las respuestas o exposiciones que dem√°s contendientes hacen ante la pregunta de un tercero -p√∫blico, moderadores, panelistas-.","dicot√≥mica"
+"35","cat_panel","Se indica qu√© sector compone el panel notado mediante la categor√≠a ""expertos"" y/o ""sectores"". Para el resto de tipos de formatos, el valor es 0.","categ√≥rica"
+"36","ncat_panel","Similar a ncat_ppac, la variable mide qu√© tanto participa un panel de persnalidades invitadas a la hora de interrogar a los candidatos en un debate.
+
+
+0: no hay panel en el debate
+
+
+1: las preguntas formuladas por los moderadores son adjudicadas a la autor√≠a de expertos o representantes de sectores sociales, de manera inespec√≠fica.
+
+
+2: las preguntas formuladas por los moderadores son adjudicadas a la autor√≠a de ciertos expertos o representantes de sectores, con nombre propio 
+
+
+3: las personalidades invitadas env√≠an sus preguntas pregrabadas.
+
+
 4: las personalidades invitadas formulan sus preguntas desde el piso.","ordinal"
-"37","cat_temas","Tipo de clasificaciÛn tem·tica elegida para los intercambios, desde el punto de vista de los debatientes.
-monotema. El debate propuesto gira en torno a un tema global.
-bloques. El debate est· organizado en grandes bloques de temas genÈricos. Dentro de estos puede o no haber preguntas formuladas por moderadores, panelistas o el p˙blico, pero en cualquier caso todos los actores de la emisiÛn deben ceÒirse a los lineamientos tem·ticos globales.
-puntuales. El debate consta de bloques con temas muy especÌficos, orientados en preguntas en voz de p˙blico, moderadores y/o panelistas, o con base en sorteos que introducen materias de discusiÛn muy puntuales. En breve, parte o toda la emisiÛn se asemeja a un interrogatorio.
-libre. No hay temas predeterminados sobre los cuales los candidatos deban pronunciarse.","categÛrica"
-"38","dico_temas_puntuales","Verdadero cuando en cat_temas hay puntuales","dicotÛmica"
-"39","dico_temas_libre","Verdadero cuando en cat_temas hay libre","dicotÛmica"
-"40","dico_temas_monotema","Verdadero cuando en cat_temas hay monotema","dicotÛmica"
-"41","dico_temas_bloques","Verdadero cuando en cat_temas hay bloques","dicotÛmica"
-"42","cat_regcandidatos","Tipo de normativa vigente desde el punto de vista de los candidatos. La variable no distingue la jerarquÌa de la normativa como tal, sino su espÌritu. NADA: No hay regulaciones especÌficas respecto de los debates para esa elecciÛn. POSIBILIDAD: La regulaciÛn electoral menciona la posibilidad de que los candidatos participen en debates durante la campaÒa, pero de manera genÈrica, como una actividad entre otras posibles. GARANTIAS: La regulaciÛn ofrece protecciones a la eventual participaciÛn de los candidatos en un debate y/o esta es entendida como un derecho. OBLIGACIONES: Los candidatos est·n obligados a comparecer en un debate, caso contrario, la legislaciÛn prevÈ sanciones.","categÛrica"
-"43","cat_regestado","Tipo de normativa vigente desde el punto de vista del propio Estado. La variable no distingue la jerarquÌa de la normativa como tal, sino su espÌritu. NADA: No hay regulaciones especÌficas respecto de los debates para esa elecciÛn. POSIBILIDAD: La regulaciÛn electoral menciona la posibilidad de que los candidatos participen en debates durante la campaÒa, pero de manera genÈrica, como una actividad entre otras posibles. FISCALIZAR: El Estado deber· respaldar, en ˙ltima instancia, regulaciones vigentes respecto de los debates que realicen terceros. GARANTIZAR: El Estado organizar· debates, a solicitud o previo acuerdo de los candidatos. ORGANIZAR: El Estado se compromete a organizar debates.","categÛrica"
-"44","cat_regmedios","Tipo de normativa vigente desde el punto de vista de los medios de comunicaciÛn privados. La variable no distingue la jerarquÌa de la normativa como tal, sino su espÌritu. NADA: No hay regulaciones especÌficas respecto de los debates para esa elecciÛn. OPORTUNIDADES: Los medios podr·n, si asÌ lo desean, transmitir debates organizados por el Estado. LIMITACIONES: Se estipulan condicionamientos para los debates que quisieran organizar los medios privados. OBLIGACIONES: Los medios privados est·n obligados a transmitir los debates que organiza el Estado, en cadena nacional.","categÛrica"
-"45","str_regulacion","Nombre o n˙mero que identifica la normativa en la materia.","cadena"
-"46","dico_programas","Esta variable asume el valor ""PROGRAMAS"" cuando los debates se organizan en el marco de polÌticas p˙blicas m·s amplias, cuyo fin es informar al electorado.","dicotÛmica"
-"47","dico_obligatorio","CategorÌa que toma el valor TRUE si el debate es obligatorio para los candidatos por ley.","dicotÛmica"
-"48","dico_impugnado","CategorÌa que toma el valor TRUE si hallamos referencias expresas de candidatos no invitados que se quejaron p˙blica o legalmente por su exclusiÛn.","dicotÛmica"
-"49","str_impugnado","Nombres de los candidatos que hicieron p˙blico rechazo a un debate en especÌfico por no haber sido invitados al mismo.","cadena"
-"50","n_candidaturas","Cantidad de candidaturas que se presentaron en una determinada elecciÛn","numÈrica"
-"51","cat_ballotage","Variable que nota si en la elecciÛn en cuestiÛn hubo ballotage. 1: No hubo, 2: SÌ hubo.","categÛrica"
-"52","cols_18","CodificaciÛn de colores por paÌs, usada para graficar.",NA
-"53","ncat_regmedios","ConversiÛn ordinal de cat_regmedios. Tipo de normativa vigente desde el punto de vista de los medios de comunicaciÛn privados. La variable no distingue la jerarquÌa de la normativa como tal, sino su espÌritu.","ordinal"
-"54","ncat_regestado","ConversiÛn ordinal de cat_regestado. Tipo de normativa vigente desde el punto de vista del propio Estado. La variable no distingue la jerarquÌa de la normativa como tal, sino su espÌritu.","ordinal"
-"55","ncat_regcandidatos","ConversiÛn ordinal de cat_regcandidatos. Tipo de normativa vigente desde el punto de vista de los candidatos. La variable no distingue la jerarquÌa de la normativa como tal, sino su espÌritu.","ordinal"
-"56","ncat_totreg","Õndice aditivo con base en ncat_regmedios, ncat_regestado, ncat_regcandidatos. Ubica a la regulaciÛn en un eje m·s libre albedrÌo - m·s regulaciÛn. Sus extremos son: no hay regulaciÛn - intervencionismo estatal activo que establece obligaciones para las partes","ordinal"
-"57","n_strorganizador","Cantidad de organizadores individuales de un debate.","numÈrica"
-"58","n_presentes","Cantidad de candidatos que asistieron al debate","numÈrica"
-"59","n_ausentes","Cantidad de candidatos expresamente invitados que se ausentaron del evento.","numÈrica"
-"60","n_invitados","Cantidad de candidatos invitados a un debate. Es la suma de los candidatos ausentes y los presentes. No siempre equivale a la cantidad de candidatos en carrera.","numÈrica"
-"61","n_proporcioninvitados","ProporciÛn de los candidatos en carrera que fueron invitados a un debate (ver n_invitados).","numÈrica"
-"62","dico_formato_expositivo","Verdadero cuando en cat_formato hay expositivo","dicotÛmica"
-"63","n_catformatos","Medida de la diversidad de formatos (esquemas de interacciÛn) en el seno de una misma emisiÛn. Es simplemente la suma de los distintos tipos de formatos que conviven en un mismo debate.","numÈrica"
-"64","n_cattemas","Medida de la diversidad de temas en el seno de una misma emisiÛn. Es simplemente la suma de los distintos tipos de estructuraciÛn tem·tica que conviven en un mismo debate.","numÈrica"
-"65","n_cattipo_educ","Cuenta de la cantidad de organizadores del tipo (educ) que coorganizan un debate.","numÈrica"
-"66","n_cattipo_estado","Cuenta de la cantidad de organizadores del tipo (estado) que coorganizan un debate.","numÈrica"
-"67","n_cattipo_mmc","Cuenta de la cantidad de organizadores del tipo (mmc) que coorganizan un debate.","numÈrica"
-"68","n_cattipo_mmp","Cuenta de la cantidad de organizadores del tipo (mmp) que coorganizan un debate.","numÈrica"
-"69","n_cattipo_osc","Cuenta de la cantidad de organizadores del tipo (osc) que coorganizan un debate.","numÈrica"
-"70","n_cattipo_NA","Cuenta de la cantidad de organizadores de los que no tenemos datos que coorganizan un debate.","numÈrica"
-"71","n_orgsxdebate","Cantidad de organizadores individuales de un debate.","numÈrica"
-"72","n_variedadorgsxdebate","Cantidad de tipos de organizadores que coorganizan un debate. Simple cuenta de los tipos diferentes de organizadores.","numÈrica"
-"73","n_variedadsubtiposxdebate","Cantidad de subtipos de organizadores que coorganizan un debate. Simple cuenta de los subtipos diferentes de organizadores.","numÈrica"
-"74","ncat_mean_tipoorg_ambito","TransformaciÛn ordinal del tipo de organizador con base en la clasificaciÛn de subtipos. Se agrupan subcategorÌas de tipo de organizador en funciÛn de ""presunto interÈs"" en pos del cual orientan su actividad: m·s p˙blico o colectivo, m·s privado. 1: Se agrupan categorÌas que abarcan asociaciones empresarias, sindicatos, empresas, asociaciones profesionales (salvo prensa). 2: Se agrupan categorÌas que abarcan medios comerciales, educacion privada, educacion religiosa, iglesia, medios de la iglesia, asociaciones de medios. 3: Se agrupan categorÌas que abarcan osc, ong, movimientos, coordinadoras, asociaciones de prensa. 4: Se agrupan categorÌas que abarcan educacion publica, medios universitarios. 5: Se agrupan categorÌas que abarcan al Estado, estado subnacional, estado electoral, medios publicos. A nivel de cada debate, se promedia el valor de la medida para cada organizador.","ordinal"
-"75","ncat_mean_tipoorg_visibilidad","Se agrupan subcategorÌas de tipo de organizador en funciÛn de medida en la cual su actividad est· exclusivamente orientada a la visibilidad. B·sicamente separa medios de comunicaciÛn de otras categorÌas, si bien incluimos categorÌa intermedia para las asociaciones de profesionales o propietarios de medios. 1: Se agrupan categorÌas que abarcan estado, ong, osc, movimientos, coordinadoras, educacion publica, educacion privada, educacion religiosa, asociaciones empresarias, sindicatos, empresas. 2: Se agrupan categorÌas que abarcan asociaciones de medios, asociaciones de prensa. 3: Se agrupan categorÌas que abarcan medios publicos, comerciales, de la iglesia, educativos. A nivel de cada debate, se promedia el valor de la medida para cada organizador.","ordinal"
-"76","n_porcentajeausentes","Porcentaje de votos obtenidos por los candidatos ausentes sobre el total de invitados (si se ausentÛ m·s de un candidato, se suman los porcentajes obtenidos por cada uno de ellos).","numÈrica"
-"77","n_proporcionausentes","ProporciÛn de los candidatos ausentes sobre el total de invitados.","numÈrica"
-"78","n_indexausentes","Õndice de ausencias. Pondera el porcentaje de votos obtenidos por los candidatos que faltaron a un encuentro en su conjunto, por la proporciÛn de candidatos que se ausentaron a un evento sobre el total de invitados. De modo que: n_porcentajeausentes*n_proporcionausentes.","numÈrica"
-"79","dico_ausencias","Variable dicotÛmica que toma el valor VERDADERO cuando en un debate hubo una o m·s ausencias.","dicotÛmica"
+"37","cat_temas","Tipo de clasificaci√≥n tem√°tica elegida para los intercambios, desde el punto de vista de los debatientes.
+
+
+monotema. El debate propuesto gira en torno a un tema global.
+
+
+bloques. El debate est√° organizado en grandes bloques de temas gen√©ricos. Dentro de estos puede o no haber preguntas formuladas por moderadores, panelistas o el p√∫blico, pero en cualquier caso todos los actores de la emisi√≥n deben ce√±irse a los lineamientos tem√°ticos globales.
+
+
+puntuales. El debate consta de bloques con temas muy espec√≠ficos, orientados en preguntas en voz de p√∫blico, moderadores y/o panelistas, o con base en sorteos que introducen materias de discusi√≥n muy puntuales. En breve, parte o toda la emisi√≥n se asemeja a un interrogatorio.
+
+
+libre. No hay temas predeterminados sobre los cuales los candidatos deban pronunciarse.","categ√≥rica"
+"38","dico_temas_puntuales","Verdadero cuando en cat_temas hay puntuales","dicot√≥mica"
+"39","dico_temas_libre","Verdadero cuando en cat_temas hay libre","dicot√≥mica"
+"40","dico_temas_monotema","Verdadero cuando en cat_temas hay monotema","dicot√≥mica"
+"41","dico_temas_bloques","Verdadero cuando en cat_temas hay bloques","dicot√≥mica"
+"42","cat_regcandidatos","Tipo de normativa vigente desde el punto de vista de los candidatos. La variable no distingue la jerarqu√≠a de la normativa como tal, sino su esp√≠ritu. NADA: No hay regulaciones espec√≠ficas respecto de los debates para esa elecci√≥n. POSIBILIDAD: La regulaci√≥n electoral menciona la posibilidad de que los candidatos participen en debates durante la campa√±a, pero de manera gen√©rica, como una actividad entre otras posibles. GARANTIAS: La regulaci√≥n ofrece protecciones a la eventual participaci√≥n de los candidatos en un debate y/o esta es entendida como un derecho. OBLIGACIONES: Los candidatos est√°n obligados a comparecer en un debate, caso contrario, la legislaci√≥n prev√© sanciones.","categ√≥rica"
+"43","cat_regestado","Tipo de normativa vigente desde el punto de vista del propio Estado. La variable no distingue la jerarqu√≠a de la normativa como tal, sino su esp√≠ritu. NADA: No hay regulaciones espec√≠ficas respecto de los debates para esa elecci√≥n. POSIBILIDAD: La regulaci√≥n electoral menciona la posibilidad de que los candidatos participen en debates durante la campa√±a, pero de manera gen√©rica, como una actividad entre otras posibles. FISCALIZAR: El Estado deber√° respaldar, en √∫ltima instancia, regulaciones vigentes respecto de los debates que realicen terceros. GARANTIZAR: El Estado organizar√° debates, a solicitud o previo acuerdo de los candidatos. ORGANIZAR: El Estado se compromete a organizar debates.","categ√≥rica"
+"44","cat_regmedios","Tipo de normativa vigente desde el punto de vista de los medios de comunicaci√≥n privados. La variable no distingue la jerarqu√≠a de la normativa como tal, sino su esp√≠ritu. NADA: No hay regulaciones espec√≠ficas respecto de los debates para esa elecci√≥n. OPORTUNIDADES: Los medios podr√°n, si as√≠ lo desean, transmitir debates organizados por el Estado. LIMITACIONES: Se estipulan condicionamientos para los debates que quisieran organizar los medios privados. OBLIGACIONES: Los medios privados est√°n obligados a transmitir los debates que organiza el Estado, en cadena nacional.","categ√≥rica"
+"45","str_regulacion","Nombre o n√∫mero que identifica la normativa en la materia.","cadena"
+"46","dico_programas","Esta variable asume el valor ""PROGRAMAS"" cuando los debates se organizan en el marco de pol√≠ticas p√∫blicas m√°s amplias, cuyo fin es informar al electorado.","dicot√≥mica"
+"47","dico_obligatorio","Categor√≠a que toma el valor TRUE si el debate es obligatorio para los candidatos por ley.","dicot√≥mica"
+"48","dico_impugnado","Categor√≠a que toma el valor TRUE si hallamos referencias expresas de candidatos no invitados que se quejaron p√∫blica o legalmente por su exclusi√≥n.","dicot√≥mica"
+"49","str_impugnado","Nombres de los candidatos que hicieron p√∫blico rechazo a un debate en espec√≠fico por no haber sido invitados al mismo.","cadena"
+"50","n_candidaturas","Cantidad de candidaturas que se presentaron en una determinada elecci√≥n","num√©rica"
+"51","cat_ballotage","Variable que nota si en la elecci√≥n en cuesti√≥n hubo ballotage. 1: No hubo, 2: S√≠ hubo.","categ√≥rica"
+"52","cols_18","Codificaci√≥n de colores por pa√≠s, usada para graficar.",NA
+"53","ncat_regmedios","Conversi√≥n ordinal de cat_regmedios. Tipo de normativa vigente desde el punto de vista de los medios de comunicaci√≥n privados. La variable no distingue la jerarqu√≠a de la normativa como tal, sino su esp√≠ritu.","ordinal"
+"54","ncat_regestado","Conversi√≥n ordinal de cat_regestado. Tipo de normativa vigente desde el punto de vista del propio Estado. La variable no distingue la jerarqu√≠a de la normativa como tal, sino su esp√≠ritu.","ordinal"
+"55","ncat_regcandidatos","Conversi√≥n ordinal de cat_regcandidatos. Tipo de normativa vigente desde el punto de vista de los candidatos. La variable no distingue la jerarqu√≠a de la normativa como tal, sino su esp√≠ritu.","ordinal"
+"56","ncat_totreg","√çndice aditivo con base en ncat_regmedios, ncat_regestado, ncat_regcandidatos. Ubica a la regulaci√≥n en un eje m√°s libre albedr√≠o - m√°s regulaci√≥n. Sus extremos son: no hay regulaci√≥n - intervencionismo estatal activo que establece obligaciones para las partes","ordinal"
+"57","n_strorganizador","Cantidad de organizadores individuales de un debate.","num√©rica"
+"58","n_presentes","Cantidad de candidatos que asistieron al debate","num√©rica"
+"59","n_ausentes","Cantidad de candidatos expresamente invitados que se ausentaron del evento.","num√©rica"
+"60","n_invitados","Cantidad de candidatos invitados a un debate. Es la suma de los candidatos ausentes y los presentes. No siempre equivale a la cantidad de candidatos en carrera.","num√©rica"
+"61","n_proporcioninvitados","Proporci√≥n de los candidatos en carrera que fueron invitados a un debate (ver n_invitados).","num√©rica"
+"62","dico_formato_expositivo","Verdadero cuando en cat_formato hay expositivo","dicot√≥mica"
+"63","n_catformatos","Medida de la diversidad de formatos (esquemas de interacci√≥n) en el seno de una misma emisi√≥n. Es simplemente la suma de los distintos tipos de formatos que conviven en un mismo debate.","num√©rica"
+"64","n_cattemas","Medida de la diversidad de temas en el seno de una misma emisi√≥n. Es simplemente la suma de los distintos tipos de estructuraci√≥n tem√°tica que conviven en un mismo debate.","num√©rica"
+"65","n_cattipo_educ","Cuenta de la cantidad de organizadores del tipo (educ) que coorganizan un debate.","num√©rica"
+"66","n_cattipo_estado","Cuenta de la cantidad de organizadores del tipo (estado) que coorganizan un debate.","num√©rica"
+"67","n_cattipo_mmc","Cuenta de la cantidad de organizadores del tipo (mmc) que coorganizan un debate.","num√©rica"
+"68","n_cattipo_mmp","Cuenta de la cantidad de organizadores del tipo (mmp) que coorganizan un debate.","num√©rica"
+"69","n_cattipo_osc","Cuenta de la cantidad de organizadores del tipo (osc) que coorganizan un debate.","num√©rica"
+"70","n_cattipo_NA","Cuenta de la cantidad de organizadores de los que no tenemos datos que coorganizan un debate.","num√©rica"
+"71","n_orgsxdebate","Cantidad de organizadores individuales de un debate.","num√©rica"
+"72","n_variedadorgsxdebate","Cantidad de tipos de organizadores que coorganizan un debate. Simple cuenta de los tipos diferentes de organizadores.","num√©rica"
+"73","n_variedadsubtiposxdebate","Cantidad de subtipos de organizadores que coorganizan un debate. Simple cuenta de los subtipos diferentes de organizadores.","num√©rica"
+"74","ncat_mean_tipoorg_ambito","Transformaci√≥n ordinal del tipo de organizador con base en la clasificaci√≥n de subtipos. Se agrupan subcategor√≠as de tipo de organizador en funci√≥n de ""presunto inter√©s"" en pos del cual orientan su actividad: m√°s p√∫blico o colectivo, m√°s privado. 1: Se agrupan categor√≠as que abarcan asociaciones empresarias, sindicatos, empresas, asociaciones profesionales (salvo prensa). 2: Se agrupan categor√≠as que abarcan medios comerciales, educacion privada, educacion religiosa, iglesia, medios de la iglesia, asociaciones de medios. 3: Se agrupan categor√≠as que abarcan osc, ong, movimientos, coordinadoras, asociaciones de prensa. 4: Se agrupan categor√≠as que abarcan educacion publica, medios universitarios. 5: Se agrupan categor√≠as que abarcan al Estado, estado subnacional, estado electoral, medios publicos. A nivel de cada debate, se promedia el valor de la medida para cada organizador.","ordinal"
+"75","ncat_mean_tipoorg_visibilidad","Se agrupan subcategor√≠as de tipo de organizador en funci√≥n de medida en la cual su actividad est√° exclusivamente orientada a la visibilidad. B√°sicamente separa medios de comunicaci√≥n de otras categor√≠as, si bien incluimos categor√≠a intermedia para las asociaciones de profesionales o propietarios de medios. 1: Se agrupan categor√≠as que abarcan estado, ong, osc, movimientos, coordinadoras, educacion publica, educacion privada, educacion religiosa, asociaciones empresarias, sindicatos, empresas. 2: Se agrupan categor√≠as que abarcan asociaciones de medios, asociaciones de prensa. 3: Se agrupan categor√≠as que abarcan medios publicos, comerciales, de la iglesia, educativos. A nivel de cada debate, se promedia el valor de la medida para cada organizador.","ordinal"
+"76","n_porcentajeausentes","Porcentaje de votos obtenidos por los candidatos ausentes sobre el total de invitados (si se ausent√≥ m√°s de un candidato, se suman los porcentajes obtenidos por cada uno de ellos).","num√©rica"
+"77","n_proporcionausentes","Proporci√≥n de los candidatos ausentes sobre el total de invitados.","num√©rica"
+"78","n_indexausentes","√çndice de ausencias. Pondera el porcentaje de votos obtenidos por los candidatos que faltaron a un encuentro en su conjunto, por la proporci√≥n de candidatos que se ausentaron a un evento sobre el total de invitados. De modo que: n_porcentajeausentes*n_proporcionausentes.","num√©rica"
+"79","dico_ausencias","Variable dicot√≥mica que toma el valor VERDADERO cuando en un debate hubo una o m√°s ausencias.","dicot√≥mica"

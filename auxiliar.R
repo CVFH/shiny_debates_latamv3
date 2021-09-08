@@ -124,3 +124,17 @@ library(tidyverse)
 # 
 # nrow(basep)
 
+# wordcloud ######
+# 
+# library(wordcloud)
+# library(tidytext)
+# base <- read.csv("data/base.csv", stringsAsFactors = F)
+# 
+# str <-  base %>%
+#   unnest_tokens(word, str_organizador)
+# words <- str %>% count(word, sort=TRUE) %>% 
+#   subset(str_length(word)>2)
+# 
+# wordcloud(words = words$word, freq = words$n, min.freq = 1,           
+#           max.words=200, random.order=FALSE, rot.per=0.35,            
+#           colors=brewer.pal(8, "Dark2"))

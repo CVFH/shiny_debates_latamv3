@@ -10,6 +10,9 @@ library(bslib)
 library(maps)
 library(bslib)
 library(mapdata)
+library(wordcloud)
+library(tidytext)
+library(DT)
 
 # datos
 base <- read.csv("data/base.csv", stringsAsFactors = F)
@@ -18,11 +21,11 @@ base_organizadores <- read.csv("data/base_organizadores.csv", stringsAsFactors =
 base_formatos <- read.csv("data/base_formatos.csv", stringsAsFactors = F)
 base_temas <- read.csv("data/base_temas.csv", stringsAsFactors = F)
 base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F)
-codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "Latin-1")
-base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F) %>% select(-c(X,X.1))
-codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "Latin-1")
-ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
-mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "Latin-1")
+codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "UTF-8" )
+base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F, encoding = "UTF-8" ) %>% select(-c(X, X.1))
+codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "UTF-8" )
+ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "UTF-8" )
+mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "UTF-8" )
 
 coloresformato <- base_formatos %>% 
     distinct(cat_tipo_formato, colores_formato)
@@ -44,13 +47,8 @@ ui <- navbarPage(
                                                       selected = "Argentina", 
                                                       multiple = TRUE),
                                           
-                                          sliderInput(inputId ="selec_t", 
-                                                      label = "Seleccione un período", 
-                                                      min = 1960, 
-                                                      max = 2025,
-                                                      value = c(min(base$ncat_eleccion), max(base$ncat_eleccion)),
-                                                      sep = ""),
-                                          
+                                          uiOutput("slider"),
+                                
                                           actionButton("action_dimensiones", 
                                                        "Visualizar selección"),
                                           
@@ -342,9 +340,9 @@ ui <- navbarPage(
                                       
                                       h2("Codebook", align = "center"),
                                       
-                                      tableOutput('tabla_codebook'),
+                                      dataTableOutput('tabla_codebook'),
                                       plotOutput("hist_codebook"),
-                                      tableOutput('tabla_summary')
+                                      dataTableOutput('tabla_summary')
                                       
                                   )
                               )
@@ -358,6 +356,19 @@ server <- function(input, output) {
     # OUTPUTS DIMENSIONES #########
     
     # arraigo
+    output$slider <- renderUI({
+        
+        df_slider <- base %>% 
+            filter(cat_pais == input$selec_pais | cat_pais %in% input$selec_pais)
+        sliderInput("selec_t","Elija un período", 
+                    min = min(df_slider$ncat_eleccion), 
+                    max = max(df_slider$ncat_eleccion),
+                    value = c(min(df_slider$ncat_eleccion),     
+                              max(df_slider$ncat_eleccion)),
+                    step = 1,
+                    sep = "")
+        })
+    
     df.filt_base_dimensiones <- eventReactive(input$action_dimensiones, {
         df.filt <- base %>% 
             filter(cat_pais == input$selec_pais | cat_pais %in% input$selec_pais) %>% 
@@ -369,14 +380,7 @@ server <- function(input, output) {
             filter(cat_pais == input$selec_pais | cat_pais %in% input$selec_pais) %>% 
             filter(ncat_eleccion >= input$selec_t[1] & ncat_eleccion <= input$selec_t[2] )
     })
-    
-    output$text_novalues <- renderText({ 
-        if (nrow(df.filt_base_dimensiones())==0) {
-            expr = "Ojo!: no hay debates en el período para los países seleccionados"
-        } else {
-            expr = ""
-        }
-    })
+
     
     output$ev_anual <- renderPlotly({
 
@@ -774,15 +778,18 @@ server <- function(input, output) {
     })
     
     df.filt_columna <- eventReactive(input$action_codebook,{
-        df.filt <- base %>% 
+        df.filt <- isolate(base %>% 
             select(input$selec_variable) %>% 
-            as_tibble()
+            as_tibble())
     })
     
-    output$tabla_codebook <- renderTable(df.filt_codebook())
+    output$tabla_codebook <- renderDataTable(df.filt_codebook())
     
     output$hist_codebook <- renderPlot({
         
+        input$action_codebook
+        isolate(
+        if (!startsWith(colnames(df.filt_columna())[1],"str")){
         df.filt_columna() %>% 
             ggplot(aes_string(names(df.filt_columna())[1])) +
             geom_bar() +
@@ -792,13 +799,21 @@ server <- function(input, output) {
                   axis.text.x = element_text(angle = 90)) +
             labs(x = "",
                  y = "count",
-                 title = "Distribución de la variable")
+                 title = "Distribución de la variable")}
+        else{
+            str <-  df.filt_columna() %>%
+                unnest_tokens(word, input$selec_variable)
+            words <- str %>% count(word, sort=TRUE) %>% 
+                subset(str_length(word)>2)
+            
+            wordcloud(words = words$word, freq = words$n, min.freq = 1,           
+                      max.words=200, random.order=FALSE, rot.per=0.35,            
+                      colors=brewer.pal(8, "Dark2"))
+            })
     })
     
-    output$tabla_summary <- renderTable(summary(df.filt_columna()),
-                                        rownames = F,
-                                        colnames = F,
-                                        bordered = T)       
+    output$tabla_summary <- renderDataTable(as.data.frame(apply(df.filt_columna(),2,summary))
+                                                )       
     
     
 }
