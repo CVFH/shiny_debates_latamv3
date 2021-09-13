@@ -64,3 +64,8 @@
 # ccodes %>% select(-X) %>% write.csv("data/ccodes.csv", fileEncoding = "UTF-8" )
 # mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "Latin-1")
 # mapear %>% select(-X) %>% write.csv("data/mapear.csv", fileEncoding = "UTF-8" )
+
+
+# base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F) 
+# base_normativa %>% select(-X) %>% write.csv("data/base_normativa.csv", fileEncoding = "UTF-8" )
+#base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F, encoding = "UTF-8" )

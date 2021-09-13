@@ -20,9 +20,9 @@ base_anual <-  read.csv("data/base_anual.csv", stringsAsFactors = F)
 base_organizadores <- read.csv("data/base_organizadores.csv", stringsAsFactors = F)
 base_formatos <- read.csv("data/base_formatos.csv", stringsAsFactors = F)
 base_temas <- read.csv("data/base_temas.csv", stringsAsFactors = F)
-base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F)
-codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "UTF-8" )
-base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F, encoding = "UTF-8" ) %>% select(-c(X, X.1))
+base_normativa <- read.csv("data/base_normativa.csv", stringsAsFactors = F, encoding = "UTF-8")
+codebook <-  read.csv("data/codebook.csv", stringsAsFactors = F, encoding = "UTF-8")
+base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F, encoding = "UTF-8") %>% select(-c(X, X.1))
 codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "UTF-8" )
 ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "UTF-8" )
 mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "UTF-8" )
@@ -34,7 +34,43 @@ coloresformato <- base_formatos %>%
 ui <- navbarPage(
     theme = bs_theme(version = 4, bootswatch = "sandstone"),
     title = "Debates presidenciales en América Latina",
+    
+    # PRESENTACION
+    tabPanel("About",
+             h2("Acerca de", align = "center"),
+             h4("Acerca de esta app"),
+             p("Este sitio se propone ser el anexo interactivo de una investigación
+                                                     que examina la trayectoria de los debates presidenciales televisados
+                                                     en América Latina. "),
+             p("Aquí entendemos que las pantallas de estos debates son una ventana: 
+                                                     hacia las relaciones que entablan distintos actores en el ámbito 
+                                                     de la comunicación política 
+                                                     de las democracias acutales.
+                                                     Por eso, nos preguntamos ", em("cómo "), "-quién, cuándo, dónde, de qué maneras- 
+                                                     se han organizado encuentros entre candidatos a la presidencia en televisión."),
+             p("Para responder a esa pregunta, recopilamos información sobre la práctica en 
+                                                     18 países latinos para todas las elecciones desde la llegada de la televisión.
+                                                     A lo largo y ancho del continente, reconstruimos historias diversas."), 
+             p("Organizamos la variedad hallada en cuatro ejes o dimensiones: 
+                                                     la penetración, los organizadores, los formatos y la normativa de los debates. 
+                                                     En la primera pestaña de este sitio, exponemos visualmente la distribución
+                                                     de los casos estudidados en varios indicadores para cada una de estas cuatro dimensiones."),
+             p("Además buscamos agregar los resultados obtenidos de modo de obtener una lectura del conjunto.
+                                                     Exponemos parte de estos esfuerzos en la segunda pestaña de este sitio,
+                                                     que permite al usuario ejecutar un análisis de clusters."),
+             p("Para facilitar el entendimiento de la información disponible y el uso del sitio,
+                                                     por último,
+                                                     la última pestaña contiene el ", em("codebook "), 
+               "que sistematiza la base de datos producto y materia prima de nuestro trabajo."),
+             h4("Sobre su autora"),
+             p("Este sitio y la investigación que le da origen son de la autoría y responsabilidad de Carolina Franco. 
+               Soy Lic. en Cs. de la Comunicación social de la Universidad de Buenos Aires. 
+               Actualmente soy becaria doctoral del IIDYPCA-CONICET. En este marco, 
+               estoy completando mis estudios de posgrado en Ciencia Política en la Universidad Torcuato di Tella.")
+    ),
+    
                  
+    
                  # PANEL DIMENSIONES ##############
                  tabPanel("Análisis por Dimensión", 
                           
@@ -51,11 +87,10 @@ ui <- navbarPage(
                                 
                                           actionButton("action_dimensiones", 
                                                        "Visualizar selección"),
-                                          
                                           br(),
                                           br(),
+                                          span(textOutput("text_error"), style="color:red")
                                           
-                                          textOutput("text_rues")
                                       ),
                                       
                                       mainPanel(
@@ -137,6 +172,11 @@ ui <- navbarPage(
                                                    
                                                    h4("Variedad de organizadores de un debate"),
                                                    
+                                                   p("Los organizadores no sólo varían de debate a debate: Además,
+                                                     de manera cada vez más frecuente, los eventos son el producto de alianzas 
+                                                     entre entidades de diversa índole."),
+                                                   p(em("A continuación, una medida de la diversidad de estas alianzas en el tiempo")),
+                                                   
                                                    plotlyOutput("alianzas")
                                                    ),
                                           
@@ -191,6 +231,7 @@ ui <- navbarPage(
                                                    ) ,
                                                    
                                                    h5("Conversión ordinal de esquemas de interacción"),
+                                                   
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                        plotOutput("cuanti_c"),
@@ -208,6 +249,8 @@ ui <- navbarPage(
                                                      o, por último, (4) lo dicho por los candidatos puede pautarse mediante la realización de “preguntas” muy específicas por parte de terceros a los candidatos."),
                                                    
                                                    h5("Variación en la estructuración temática de los debates"),
+                                                   
+                                                   
                                                    splitLayout(
                                                        cellArgs = list(style = "padding: 6px"),
                                                        plotOutput("temas_t"),
@@ -380,9 +423,21 @@ server <- function(input, output) {
             filter(cat_pais == input$selec_pais | cat_pais %in% input$selec_pais) %>% 
             filter(ncat_eleccion >= input$selec_t[1] & ncat_eleccion <= input$selec_t[2] )
     })
-
     
+    # mensajito de error 
+     
+     output$text_error <- renderText({ 
+         
+         if(nrow(df.filt_base_dimensiones())==0){
+         
+             expr = "Ups! Parece que no hay datos. No hay debates en el período para los países seleccionados."
+         }
+         else{}
+         })
+
     output$ev_anual <- renderPlotly({
+        
+        if(nrow(df.filt_base_anual())>0) {
 
         ggplotly(
             df.filt_base_anual() %>%  
@@ -404,11 +459,16 @@ server <- function(input, output) {
                           caption = "Elaboración propia. 
        El tamaño de los círculos representa la cantidad de debates hechos en una elección.
        Las x representan elecciones sin debates") )
+        
+            }
+        else{}
     
         })
     
     output$ausencias <- renderPlot({
        
+        if(nrow(df.filt_base_dimensiones())>0) {
+            
          df.filt_base_dimensiones() %>% 
         filter(ncat_ronda == 1) %>% 
             group_by(ncat_eleccion, cat_pais, cols_18) %>% 
@@ -425,6 +485,8 @@ server <- function(input, output) {
              caption = "Elaboración propia.
        El índice de ausencias contempla el procentaje de votos obtenido por los ausentes, multiplicado por la proporcion de ausentes a los debates.
              No se cuentan los debates previos a la segunda vuelta electoral.")
+        }
+        else{}
         
     })
     
@@ -439,6 +501,8 @@ server <- function(input, output) {
     
     output$organizadores <- renderPlot({
         
+        if(nrow(df.filt_base_organizadores())>0) {
+            
         df.filt_base_organizadores() %>% 
             group_by(str_organizador, cat_pais, ncat_eleccion, t_fecha, id_debate) %>% 
             mutate(n_catorganizadorv2 = n_distinct(cat_tipoorgv2),
@@ -481,10 +545,15 @@ server <- function(input, output) {
                  y = "Tipo de organizador",
                  caption = "Elaboración propia. 
         El tamaño de los círculos es proporcional a la cantidad de debates que involucraron a cada tipo de organizador en un año dado")
-    })
+        }
+        else{}
+            
+   })
     
     output$alianzas <- renderPlotly({
         
+        if(nrow(df.filt_base_organizadores())>0) {
+            
         ggplotly(
         df.filt_base_organizadores()  %>%  
             group_by(id_debate, ncat_eleccion, cat_pais) %>% 
@@ -508,6 +577,8 @@ server <- function(input, output) {
                  caption = "Elaboración propia.
                  El tamaño del cìrculo representa la cantidad total de organizadores")
         )
+        }
+        else{}
     })
     
     # formatos 
@@ -520,7 +591,9 @@ server <- function(input, output) {
     }) 
     
     output$formatos_t <- renderPlot({
-    
+        
+        if(nrow(df.filt_formatos())>0) {
+            
         df.filt_formatos() %>% 
             group_by(ncat_eleccion, cat_tipo_formato) %>% 
             summarise(n_peso_formato_xdebate = sum(n_peso_formato_xdebate, na.rm=TRUE) )  %>% 
@@ -545,12 +618,15 @@ server <- function(input, output) {
                  y = "Tipo de intercambio",
                  title = "En el tiempo",
                  caption = "")  
-        
+        }
+        else{}
     
     })   
     
     output$formatos_p <- renderPlot({
         
+        if(nrow(df.filt_formatos())>0) {
+            
         df.filt_formatos() %>% 
             group_by(cat_pais, cat_tipo_formato) %>% 
             summarise(n_peso_formato_xdebate = sum(n_peso_formato_xdebate, na.rm=TRUE) )%>% 
@@ -576,6 +652,8 @@ server <- function(input, output) {
                  y = "",
                  title = "por país",
                  caption = "")
+        }
+        else{}
     })   
     
     df.filt_temas <- eventReactive(input$action_dimensiones,{
@@ -587,6 +665,8 @@ server <- function(input, output) {
     
     output$temas_t <- renderPlot({
         
+        if(nrow(df.filt_temas())>0) {
+            
         df.filt_temas() %>% 
             group_by(ncat_eleccion, cat_tipo_tema) %>% 
             summarise(n_peso_tema_xdebate = sum(n_peso_tema_xdebate, na.rm=TRUE) ) %>% 
@@ -605,10 +685,14 @@ server <- function(input, output) {
                  y = "",
                  title = "En el tiempo",
                  caption = "") 
+        }
+        else{}
     }) 
     
     output$temas_p <- renderPlot({
         
+        if(nrow(df.filt_temas())>0) {
+            
         df.filt_temas() %>% 
             group_by(cat_pais, cat_tipo_tema) %>% 
             summarise(n_peso_tema_xdebate = sum(n_peso_tema_xdebate, na.rm=TRUE) ) %>%  
@@ -629,10 +713,15 @@ server <- function(input, output) {
                  y = "",
                  title = "por país",
                  caption = "")
+        }
+        else{}
         
     }) 
     
     output$cuanti_c <- renderPlot({
+        
+        if(nrow(df.filt_base_dimensiones())>0) {
+            
         df.filt_base_dimensiones() %>% 
             ggplot() +
             geom_boxplot(aes(cat_pais, 
@@ -647,10 +736,14 @@ server <- function(input, output) {
             labs(x = "",
                  y = "",
                  title = "N° de competencia")
+        }
+        else{}
     }) 
     
     output$cuanti_p <- renderPlot({
         
+        if(nrow(df.filt_base_dimensiones())>0) {
+            
         df.filt_base_dimensiones() %>% 
             ggplot() +
             geom_boxplot(aes(cat_pais,
@@ -665,6 +758,8 @@ server <- function(input, output) {
             labs(x = "",
                  y = "",
                  title = "N° de participación")
+        }
+        else{}
     }) 
     
     # normativa 
