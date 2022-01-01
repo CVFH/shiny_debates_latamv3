@@ -116,25 +116,59 @@ library(tidyverse)
 #   left_join(base_cluster_pais %>%  select(-X))
 # 
 # mapear %>%  write.csv("mapear.csv")
-
-
-
-# basep <- base %>% 
-#   filter(cat_pais =="Argentina" & ncat_eleccion==1965)
 # 
-# nrow(basep)
-
-# wordcloud ######
 # 
-# library(wordcloud)
-# library(tidytext)
-# base <- read.csv("data/base.csv", stringsAsFactors = F)
 # 
-# str <-  base %>%
-#   unnest_tokens(word, str_organizador)
-# words <- str %>% count(word, sort=TRUE) %>% 
-#   subset(str_length(word)>2)
+# # basep <- base %>% 
+# #   filter(cat_pais =="Argentina" & ncat_eleccion==1965)
+# # 
+# # nrow(basep)
 # 
-# wordcloud(words = words$word, freq = words$n, min.freq = 1,           
-#           max.words=200, random.order=FALSE, rot.per=0.35,            
-#           colors=brewer.pal(8, "Dark2"))
+# # wordcloud ######
+# # 
+# # library(wordcloud)
+# # library(tidytext)
+# # base <- read.csv("data/base.csv", stringsAsFactors = F)
+# # 
+# # str <-  base %>%
+# #   unnest_tokens(word, str_organizador)
+# # words <- str %>% count(word, sort=TRUE) %>% 
+# #   subset(str_length(word)>2)
+# # 
+# # wordcloud(words = words$word, freq = words$n, min.freq = 1,           
+# #           max.words=200, random.order=FALSE, rot.per=0.35,            
+# #           colors=brewer.pal(8, "Dark2"))
+# 
+# 
+# 
+# 
+# base_subtipos <- base_organizadores %>% 
+#   group_by(cat_pais) %>% 
+#   mutate(n_debates_pais = n_distinct(id_debate),
+#          n_organizadores_pais = n() ) %>% 
+#   ungroup() %>% 
+#   group_by(cat_pais, cat_tipoorgv2) %>% 
+#   mutate(n_tipo_pais = n(),
+#          n_debates_tipo_pais = n_distinct(id_debate),
+#          pr_debates_tipo_pais = n_debates_tipo_pais/n_debates_pais) %>% 
+#   ungroup() %>% 
+#   group_by(cat_tipoorgv2, ncat_subtipov2, cat_pais) %>% 
+#   summarise(n_subtipo_pais = n(),
+#             n_debates_con_subtipo_pais = n_distinct(id_debate),
+#             n_debates_pais = mean(n_debates_pais),
+#             # n_organizadores_pais = mean(n_organizadores_pais),
+#             # n_osc_pais = mean(n_osc_pais), 
+#             n_debates_tipo_pais = mean(n_debates_tipo_pais),
+#             pr_debates_tipo_sobre_totdebates = round(n_debates_tipo_pais/n_debates_pais, 3)*100,
+#             # pr_subtipo_pais_sobre_osc = round(n_subtipo_pais/n_osc_pais, 3)*100,
+#             #pr_subtipo_pais_sobre_totorgs = round(n_subtipo_pais/n_organizadores_pais, 3)*100,
+#             pr_debates_con_subtipo_pais_sobre_debatestipo = round(n_debates_con_subtipo_pais/n_debates_tipo_pais, 3)*100,
+#             pr_debates_con_subtipo_pais_sobre_totdebates = round(n_debates_con_subtipo_pais/n_debates_pais, 3)*100) %>% 
+#   arrange(cat_pais, cat_tipoorgv2, ncat_subtipov2) #%>% 
+# 
+# 
+# labs(x = "Año de elección", 
+#      y = "n tipos de organizador",
+#      caption = "Elaboración propia.
+#                  Cada círculo representa un debate, su tamaño, 
+#                  la cantidad total de entidades que lo organizaron.")

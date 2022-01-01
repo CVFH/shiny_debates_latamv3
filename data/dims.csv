@@ -1,0 +1,9 @@
+Dimensión,Sub-dimensiones,Definición,Unidad,Indicadores,Escala
+Grado de penetración de la práctica,Intensidad,Qué tan usuales son los debates,País,"Antigüedad y regularidad de la práctica a través del tiempo, cantidad de debates que se realizan por elección",Numérica
+,Importancia,Qué importancia tienen los debates para un proceso electoral,Debate,"Audiencia, cobertura mediática, lugar en la memoria histórica",Numérica
+Tipo de organizador,-,Qué actor es garante de los acuerdos entre las partes,Debate,"Clasificación en: medios comerciales, medios públicos, Estado, entidades educativas, entidades de la sociedad civil","Categoríca. Conversión ordinal según el ""ámbito"" de la entidad"
+Formato,Esquema de interacción,Quién y cómo hace preguntas a los candidatos,Debate,"Clasificación en: libre, duelo, expositivo, moderadores, periodistas, expertos, sectores, virtuales, presentes","Categórica. Conversión ordinal en ""nivel máximo de competencia"" y ""nivel máximo de participación"" promovidas por un debate"
+,Estructuración temática,Cómo se organizan los tópicos a debatir,Debate,"Clasificación en: libre, bloques, preguntas, monotema","Categórica, conversión ordinal."
+Normativa,Candidatos,Qué prevee la normativa desde el punto de vista de los candidatos,País,"Clasificación en: nada, posiblidad, garantías, obligaciones","Categórica, conversión ordinal."
+,Medios,Qué prevee la normativa para medios de comuncación y organizadores de los debates,País,"Clasificación en: nada, posibilidad, oportunidad, límites, obligaciones","Categórica, conversión ordinal."
+,Estado,Qué deberes posee el estado según la normativa,País,"Clasificación en: nada, posibilidad, garantizar, fiscalizar, organizar","Categórica, conversión ordinal."

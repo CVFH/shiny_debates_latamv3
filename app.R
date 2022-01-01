@@ -26,6 +26,7 @@ base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F
 codebook_cluster_pais <-  read.csv("data/codebook_cluster_pais.csv", stringsAsFactors = F, encoding = "UTF-8" )
 ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "UTF-8" )
 mapear <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "UTF-8" )
+dims <- read.csv("data/dims.csv", stringsAsFactors = F, encoding = "UTF-8" )
 
 coloresformato <- base_formatos %>% 
     distinct(cat_tipo_formato, colores_formato)
@@ -45,8 +46,8 @@ ui <- navbarPage(
              p("Aquí entendemos que las pantallas de estos debates son una ventana: 
                                                      hacia las relaciones que entablan distintos actores en el ámbito 
                                                      de la comunicación política 
-                                                     de las democracias acutales.
-                                                     Por eso, nos preguntamos ", em("cómo "), "-quién, cuándo, dónde, de qué maneras- 
+                                                     de las democracias actuales.
+                                                     Por eso, nos preguntamos ", em("cómo "), "–quién, cuándo, dónde, de qué maneras– 
                                                      se han organizado encuentros entre candidatos a la presidencia en televisión."),
              p("Para responder a esa pregunta, recopilamos información sobre la práctica en 
                                                      18 países latinos para todas las elecciones desde la llegada de la televisión.
@@ -102,6 +103,31 @@ ui <- navbarPage(
                                           br(),
                                           
                                       tabsetPanel(
+                                          tabPanel("Presentación",
+                                                   
+                                          p(""),
+                                          
+                                          p("Esta tesis entiende por ", em("debate presidencial televisado"), " a 
+                                          todo encuentro entre dos o más candidatos a la presidencia que sea transmitido en vivo y en directo por un canal o medio audiovisual, 
+                                            durante el período de campaña electoral."),
+                                          
+                                          p("Como dijimos, 
+                                            para estudiar la variación en los modos en los que los debates han sido llevados a cabo
+                                             en América Latina,
+                                             nos ha resultado conveniente sistematizar cuatro dimensiones. Estas son 
+                                            (1) el grado de arraigo o penetración, 
+                                            (2) el tipo de organizador, 
+                                            (3) los formatos, 
+                                            y (4) la regulación de la práctica."),
+                                          
+                                          p(em("En la tabla que sigue, adelantamos una síntesis de las variables bajo estudio,
+                                                a cada una de las cuales dedicamos una pestaña respectiva dentro de esta sección.")),
+                                          
+                                          dataTableOutput("presentaciondims")
+
+                                            
+                                          ),
+                                          
                                           tabPanel("Arraigo", 
                                                    
                                                    h2("Grado de arraigo de la práctica", align = "center"),
@@ -111,18 +137,23 @@ ui <- navbarPage(
                                                      ": el lugar que los debates ocupan para las elecciones locales"),
                                                    
                                                    p("Esta, a su vez, es apreciable en dos subdimensiones:
-                                                     la rutinización de los debates, la primera, 
+                                                     la intensidad de los debates, la primera, 
                                                      su importancia, la segunda"),
                                                    
                                                    
                                                    p(
-                                                       "La ", strong("rutinización "), "indica qué tan predecible o esperables son los debates, es decir,
+                                                       "La ", strong("intensidad "), "es una variable cuantitativa que nos permite aproximarnos a
+                                                       qué tan predecible o esperables son los debates, es decir,
                                                        qué tan acostumbradas están las personas de un país a participar de, 
                                                        organizar y mirar debates entre candidatos a la presidencia en televisión.
-                                                       Para apreciar esta rutinización, podemos mirar la antigüedad de la práctica, 
+                                                       Tal intensidad se aprecia en la antigüedad de la práctica, 
                                                        su constancia o inconstancia a través del tiempo 
-                                                       y la cantidad de debates que tienen lugar en un proceso electoral"
+                                                       y la cantidad de debates que tienen lugar en un proceso electoral."
                                                    ),
+                                                   
+                                                   p("Es interesante notar que cada vez se realizan más debates y en más países,
+                                                     pero, a su vez, estos últimos varían en qué tan temprano o tarde han adoptado la práctica, con qué constancia 
+                                                     y en cuántos debates suelen realizarse en los períodos electorales contemporáneos."),
                                                    
                                                    h4("Cantidad de debates realizados"),
                                                    h5("En el tiempo y por país"),
@@ -133,18 +164,33 @@ ui <- navbarPage(
                                                    plotlyOutput("ev_anual"),
                                                    
                                                    br(),
-                                                   p("Al margen de qué tan rutinarios o usuales son, no todos los debates
-                                                     tienen la misma ",strong("importancia"), ", no siempre ocupan el centro de atención.
+                                                   p("Al margen de qué tan intensamente son realizados, no todos los debates
+                                                     tienen la misma ",strong("importancia"), ", no siempre acaparan la misma atención.
                                                      Para medir esta subdimensión del grado de penetración de la práctica,
                                                      podríamos comparar niveles de audiencias o de cobertura mediática. 
                                                      Lamentablemente, hay pocos datos comparables para los casos de nuestra muestra.
                                                      También podemos apreciar qué tan recordados son los debates a lo largo de la historia.
-                                                     Algunos son olvidados, otros impregnan la memoria colectiva.
-                                                     Finalmente, algunos debates son desestimados por los candidatos: estos se ausentan, 
-                                                     y al hacerlo, sobre todo si son candidatos populares, 
-                                                     repercuten en el interés y la magnitud del público que convocan."),
+                                                     Algunos son olvidados, otros impregnan la memoria colectiva. 
+                                                     De nuevo, esta medida es difícil de representar gráficamente."),
+                                                   p("Alternativamente, vale la pena considarar que algunos debates son desestimados por los candidatos: 
+                                                   estos se ausentan, y al hacerlo, sobre todo si son muy populares, 
+                                                     parece mermar el interés y la magnitud del público que convoca una emisión, es decir, en su relevancia.
+                                                     De todos modos, no está clara la relación entre las ausencias y la importancia de un evento:
+                                                     ¿los debates pasan desapercibidos como consecuencia de la falta de los prinicipales candidatos,
+                                                     o los últimos deciden no ir porque saben que los primeros no son muy relevantes?"),
                                                    
-                                                   p("A continuación exponemos una representación gráfica de la última medida"),
+                                                   p("Al margen de cuánto sirva para dar cuenta o no de la importancia de los encuentros, 
+                                                   en cualquier caso, 
+                                                     no está de más conocer la distribución de esta medida, es decir, 
+                                                     qué tanto han logrado o no los debates presidenciales televisados convocar a los principales contendientes en la carrera electoral.
+                                                     A continuación exponemos una representación gráfica de estas ausencias, calculadas a nivel promedio por período electoral (por campaña en un determinado año y país).
+                                                     Se observa que algunas campañas comportan un nivel medio de ausencias. Esto ocurre cuando se hacen muchos debates, produciéndose una jerarquización entre ellos:
+                                                     se vuelve difícil que todos los candidatos asistan a todos los encuentros, y, por lo tanto, tiende a haber un par de declinaciones a debatir. 
+                                                     En cambio, en campañas en las que se realiza un único o pocos duelos televisados, los candidatos 
+                                                     o bien otorgan prioridad a estos eventos, 
+                                                     y entonces nos encontramos con muy pocas ausencias, 
+                                                     o bien hallamos importantes 'faltazos' que, 
+                                                     muchas veces, terminan hechando por la borda el encuentro."),
                                                    
                                                    h4("Índice de ausencias"),
                                                    h5("Promedio en relación a la cantidad de debates en una elección"),
@@ -163,21 +209,40 @@ ui <- navbarPage(
                                                      ya que suele tener que arbitrar las conflictivas negociaciones entre candidatos,
                                                      y asegurar que se cumplan los compromisos asumidos."),
                                                    p("Medios privados, medios públicos, Estado, organizaciones de la sociedad civil y del ámbito educativo 
-                                                     son los actores que han intervenido en la historia latina de la práctica."),
+                                                     son los actores que han intervenido en la historia latina de la práctica. 
+                                                     De modo general, mientras que en sus comienzos los debates eran traccionados en su mayoría 
+                                                     por canales de televisión privados, hoy asistimos a una mayor diversidad de organizadores. 
+                                                     Aún así, los países tienden a diferenciarse conforme al tipo de organizador predominante."),
+                                                   p(em("
+                                                     A continuación, podemos ver cómo ha variado el carácter de los organizadores de los debates
+                                                     a lo largo del tiempo y por país")),
                                                    
                                                    h4("Tipo de organizador de los debates"),
                                                    h5("A través del tiempo, por país"),
                                                    
                                                    plotOutput("organizadores"),
                                                    
-                                                   h4("Variedad de organizadores de un debate"),
+                                                   h4("Profundizando en la variedad de organizadores de un debate"),
                                                    
-                                                   p("Los organizadores no sólo varían de debate a debate: Además,
-                                                     de manera cada vez más frecuente, los eventos son el producto de alianzas 
-                                                     entre entidades de diversa índole."),
-                                                   p(em("A continuación, una medida de la diversidad de estas alianzas en el tiempo")),
+                                                   p("Algo importante a tener en cuenta es que muchos debates son el resultado de la labor 
+                                                   de más de un organizador. En este sentido, notamos que también al interior de cada debate 
+                                                   ha aumentado la diversidad de organizadores; es decir, 
+                                                     de manera cada vez más frecuente, los eventos son el producto de alianzas entre más de un actor 
+                                                     y, en particular, 
+                                                     de acuerdos entre entidades de diversa índole."),
+                                                   p(em("El gráfico que sigue permite visualizar la diversidad de estas alianzas en el tiempo")),
                                                    
-                                                   plotlyOutput("alianzas")
+                                                   plotlyOutput("alianzas"),
+                                                   
+                                                   p("Finalmente, vale la pena considerar más específicamente el carácter de los organizadores de los debates.
+                                                      De hecho, la que presentamos aquí es una categorización cuya base es inductiva: hemos primero identificado 
+                                                     a las entidades que participan de la realización de un evento de manera relativamente acotada, 
+                                                     y luego hemos procedido a agrupar la prularidad de etiquetas halladas en las cinco categorías 
+                                                     anunciadas más atrás."),
+                                                   p("De esta manera, como expone la tabla que sigue, podemos comparar los ", 
+                                                     em("subtipos de organizadores que con mayor frecuencia organizan debates en cada país.")),
+                                                   
+                                                   tableOutput('subtipos')
                                                    ),
                                           
                                           tabPanel("Formatos", 
@@ -398,6 +463,17 @@ server <- function(input, output) {
     
     # OUTPUTS DIMENSIONES #########
     
+    # presentacion
+  
+    output$presentaciondims <- renderDataTable(
+      
+      dims %>% 
+        rename("Nivel / Unidad de observación" = "Unidad",
+               "Indicadores y categorías" = "Indicadores",
+               "Escala de medición" = "Escala",
+               "Sub-dimensiones" = "Sub.dimensiones")
+    )
+    
     # arraigo
     output$slider <- renderUI({
         
@@ -563,7 +639,7 @@ server <- function(input, output) {
             geom_point(aes(ncat_eleccion, n_variedadorgs, 
                            size = n_orgs,
                            colour = cat_pais),
-                       alpha = 0.5 ) +
+                       alpha = 0.6 ) +
             theme_minimal() +
             scale_y_continuous(breaks = seq(0,15,1)) +
             scale_x_continuous(breaks = seq(1955,2021,5)) +
@@ -572,14 +648,63 @@ server <- function(input, output) {
             theme(legend.position = "none",
                   plot.title = element_text(hjust = 0.5),
                   axis.text.x = element_text(angle = 90)) +
-            labs(x = "Año de elección", 
-                 y = "n tipos de organizador",
-                 caption = "Elaboración propia.
-                 El tamaño del cìrculo representa la cantidad total de organizadores")
-        )
+          labs(x = "Año de elección", 
+               y = "n tipos de organizador")) %>%
+            layout(title = list(text = paste0("Variedad de organizadores por debate",
+                                              '<br>',
+                                              '<sup>',
+                                              "en el tiempo",
+                                              '</sup>')),
+                   margin = list(b=220), 
+                   annotations = list(x = 0.95, y = -0.75, #position of text adjust as needed 
+                   text = "Elaboración propia.
+                 Cada círculo representa un debate, su tamaño, 
+                 la cantidad total de entidades que lo organizaron.",
+                                      showarrow = F, xref='paper', yref='paper', 
+                                      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+                                      font=list(size=10, color="grey")))
+
         }
         else{}
     })
+    
+    output$subtipos <- renderTable({
+      
+      if(nrow(df.filt_base_organizadores())>0) {
+        
+        df.filt_base_organizadores()  %>%  
+          group_by(cat_pais) %>% 
+          mutate(n_debates_pais = n_distinct(id_debate),
+                 n_organizadores_pais = n() ) %>% 
+          ungroup() %>% 
+          group_by(cat_pais, cat_tipoorgv2) %>% 
+          mutate(n_tipo_pais = n(),
+                 n_debates_tipo_pais = n_distinct(id_debate),
+                 pr_debates_tipo_pais = n_debates_tipo_pais/n_debates_pais) %>% 
+          ungroup() %>% 
+          group_by(cat_tipoorgv2, ncat_subtipov2, cat_pais) %>% 
+          summarise(#n_subtipo_pais = n(),
+                    n_debates_con_subtipo_pais = n_distinct(id_debate),
+                    n_debates_tipo_pais = mean(n_debates_tipo_pais),
+                    n_debates_pais = mean(n_debates_pais),
+                    pr_debates_tipo_sobre_totdebates = round(n_debates_tipo_pais/n_debates_pais, 3)*100,
+                    pr_debates_con_subtipo_pais_sobre_debatestipo = round(n_debates_con_subtipo_pais/n_debates_tipo_pais, 3)*100,
+                    pr_debates_con_subtipo_pais_sobre_totdebates = round(n_debates_con_subtipo_pais/n_debates_pais, 3)*100) %>% 
+          arrange(cat_pais, cat_tipoorgv2, ncat_subtipov2) %>% 
+          rename(Pais = "cat_pais",
+                 "Tipo de organizador" = "cat_tipoorgv2",
+                 "Subtipo de orgnizador"= "ncat_subtipov2",
+            "n debates con subtipo en país" = "n_debates_con_subtipo_pais",
+            "n debates con tipo en país" = "n_debates_tipo_pais",
+            "total debates país" = "n_debates_pais",
+            "% debates tipo / total" = "pr_debates_tipo_sobre_totdebates",
+            "% debates subtipo / tipo" = "pr_debates_con_subtipo_pais_sobre_debatestipo",
+            "% debates subtipo / total" = "pr_debates_con_subtipo_pais_sobre_totdebates")
+      }
+      else{}
+    },         
+    hover = T, 
+    digits = 0 )  
     
     # formatos 
     

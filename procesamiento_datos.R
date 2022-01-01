@@ -6,8 +6,8 @@
 # # elecciones <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_elecciones.xlsx")
 # # elecciones %>% write.csv("./data/elecciones.csv")
 # # 
-# # base_organizadores <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_organizadoresv3.xlsx")
-# # base_organizadores %>% write.csv("./data/base_organizadores.csv")
+#base_organizadores <- readxl::read_xlsx("/home/carolina/Documents/R_proyects/debates_latam/datav3/base_organizadoresv3.xlsx")
+#base_organizadores %>% write.csv("./data/base_organizadores.csv")
 # # 
 # # base_formatos <- readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/datav3/base_formatos_longv3.xlsx")
 # # base_formatos %>% write.csv("./data/base_formatos.csv")
