@@ -5,7 +5,7 @@ account: cvfh
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4583654
-bundleId: 5499144
+bundleId: 5499261
 url: https://cvfh.shinyapps.io/shiny_debates_latamv3/
-when: 1642956618.47096
-lastSyncTime: 1642956618.47098
+when: 1642959585.63187
+lastSyncTime: 1642959585.63189
