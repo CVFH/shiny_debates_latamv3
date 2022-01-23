@@ -87,36 +87,62 @@ library(tidyverse)
 #   theme(panel.border = element_blank(), panel.grid.major = element_line(colour = "grey80"), panel.grid.minor = element_blank())
 # 
 # 
-# ccodes <-  read.csv("ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
-# base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
+ccodes <-  read.csv("ccodes.csv", stringsAsFactors = F, encoding = "Latin-1")
+base_cluster_pais <- read.csv("data/base_cluster_pais.csv", stringsAsFactors = F)
+# test2 <- read.csv("https://raw.githubusercontent.com/CVFH/shiny_debates_latamv3/master/data/mapear.csv")
+# mapear2 <- test2 %>% 
+#   left_join(mapear %>% select(-c("X","X.1", "lat")))
 # 
-# mapear <- ccodes %>% 
+#mapear <- ccodes %>% 
 #   left_join(base_cluster_pais %>%  select(-X)) 
-# 
+# # 
 # data_mapa <- map_data("world2", mapear$ccode) %>%
-#   rename(ccode = "region") %>% 
-#   left_join(mapear)
+#    rename(ccode = "region") %>% 
+#    left_join(mapear)
+# # 
+# # mapear %>% 
+# #   ggplot() +
+# #   geom_polygon(aes(x = long, 
+# #                    y = lat, 
+# #                    group = group, 
+# #                    fill = ccode, 
+# #                    alpha = ncat_meancompetencia)) + 
+# #   scale_colour_manual(breaks = ccodes$ccode,
+# #                       values = ccodes$cols_18) +
+# #   coord_fixed(1) +
+# #   theme_void() +
+# #   theme(legend.position = "none")
+# # 
+# # mapear  <-    map_data("world2", ccodes$ccode) %>%
+# #   rename(ccode = "region") %>% 
+# #   left_join(ccodes) %>% 
+# #   left_join(base_cluster_pais %>%  select(-X))
+
+#mapear2 %>%  write.csv("mapear.csv")
+# ccodes <-  read.csv("data/ccodes.csv", stringsAsFactors = F, encoding = "UTF-8" )
+
+# problematicos <- c("n_log_debates_total", "n_mean_reg", "ncat_año_primer_debate", "n_años_reg")
+# mapear2 <-  read.csv("data/mapear.csv", stringsAsFactors = F, encoding = "UTF-8" ) %>% select(-c("X", "X.2", "X.3")) %>% 
+#   select(-problematicos) %>% 
+#   left_join(base_cluster_pais)
+
 # 
-# mapear %>% 
-#   ggplot() +
-#   geom_polygon(aes(x = long, 
-#                    y = lat, 
-#                    group = group, 
-#                    fill = ccode, 
-#                    alpha = ncat_meancompetencia)) + 
-#   scale_colour_manual(breaks = ccodes$ccode,
-#                       values = ccodes$cols_18) +
-#   coord_fixed(1) +
-#   theme_void() +
-#   theme(legend.position = "none")
-# 
-# mapear  <-    map_data("world2", ccodes$ccode) %>%
-#   rename(ccode = "region") %>% 
-#   left_join(ccodes) %>% 
-#   left_join(base_cluster_pais %>%  select(-X))
-# 
-# mapear %>%  write.csv("mapear.csv")
-# 
+# test <- mapear2  %>%
+#     select(c(long, lat, group, ccode, cat_pais, n_log_debates_total)) %>% 
+#     rename(plotear = n_log_debates_total) %>% 
+#     ggplot() +
+#     geom_polygon(aes(x = long, 
+#                      y = lat, 
+#                      group = group,
+#                      colour = ccode)) +#, 
+#                      #colour = ccode, 
+#                      #alpha = plotear),
+#                 # fill = "black") + 
+#     scale_colour_manual(breaks = ccodes$ccode,
+#                         values = ccodes$cols_18) +
+#     coord_fixed(1) +
+#     theme_void() +
+#     theme(legend.position = "none")
 # 
 # 
 # # basep <- base %>% 
