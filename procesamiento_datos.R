@@ -29,9 +29,10 @@
 # base_cluster_pais %>%
 #   rename(ncat_ano_primer_debate = "ncat_año_primer_debate") %>% 
 #   write.csv("./data/base_cluster_pais.csv")
-# # 
-# codebook_cluster_pais <-  readxl::read_xlsx("C:/Users/carof/Documents/INVESTIGACION y BECAS/PROYECTOS R/debates/debates_latam/codebooks/codebook_base_cluster_pais.xlsx") 
-# codebook_cluster_pais %>% write.csv("./data/codebook_cluster_pais.csv") 
+#
+# # este lo hice desde ubuntu
+#codebook_cluster_pais <-  readxl::read_xlsx("./codebooks/codebook_base_cluster_pais.xlsx") 
+#codebook_cluster_pais %>% write.csv("codebook_cluster_pais.csv") 
 # # 
 # 
 # 
