@@ -141,7 +141,6 @@ library(tidyverse)
 # 
 # 
 # 
-# 
 # base_subtipos <- base_organizadores %>% 
 #   group_by(cat_pais) %>% 
 #   mutate(n_debates_pais = n_distinct(id_debate),
